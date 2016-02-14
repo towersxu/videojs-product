@@ -1,0 +1,125 @@
+.video-js.gaia .vjs-control-bar {
+  bottom: 20px;
+  left: 45px;
+  width: 770px;
+  height: 50px;
+  border-radius: 6px;
+  background: rgba(38,38,38,0.9);
+}
+.video-js.gaia .vjs-play-control{
+  width: 66px;
+}
+.video-js.gaia .vjs-play-control:before {
+  font-size: 40px;
+  line-height: 50px;
+  border-right: 1px solid #666;
+}
+.video-js.gaia .vjs-time-control{
+  width: 8em;
+  text-align: center;
+  line-height: 50px;
+  color: gray;
+}
+.video-js.gaia .vjs-progress-control{
+  width: 350px;
+}
+.video-js.gaia .vjs-progress-control .vjs-slider{
+  margin: 20px 5px;
+  width: 340px;
+  height: 8px;
+  background: none;
+  border: 1px solid #666;
+}
+.video-js.gaia .vjs-load-progress{
+  background: #666;
+  height: 8px;
+  top: -1px;
+}
+.video-js.gaia .vjs-play-progress{
+  height: 6px;
+  background: #cc373c;
+}
+.video-js.gaia .vjs-play-progress:before{
+  content: "";
+  width: 6px;
+  height: 8px;
+  top: -1px;
+  background: #ff575c;
+}
+.video-js.gaia .vjs-progress-control .vjs-mouse-display{
+  width: 3px;
+  background: #b3b3b3;
+}
+.video-js.gaia .vjs-live-control{
+  line-height: 50px;
+  width: 74px;
+  cursor: pointer;
+}
+
+.video-js.gaia .vjs-live-display{
+  height: 50px;
+  line-height: 50px;
+  width: 74px;
+  text-align: center;
+  color: #666;
+}
+.video-js.gaia .vjs-live-control:hover{
+  .vjs-gaia-resolution{
+    display: block;
+  }
+}
+.video-js.gaia .vjs-gaia-resolution{
+  position: absolute;
+  width: 74px;
+  bottom: 50px;
+  display: none;
+}
+.video-js.gaia .vjs-gaia-resolution .tabs{
+  padding-top: 10px;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  background: rgba(38,38,38,0.9)
+}
+.video-js.gaia .vjs-gaia-resolution .tabs .tab{
+  width: 74px;
+  height: 20px;
+  line-height: 20px;
+  color: #b2b2b2;
+}
+.video-js.gaia .vjs-gaia-resolution .tabs .tab:hover{
+  color: #fff;
+  background: #ff575c;
+}
+.video-js.gaia .vjs-volume-menu-button-vertical{
+  width: 46px;
+}
+.video-js.gaia .vjs-volume-menu-button-vertical .vjs-menu-content{
+  width: 46px;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  background: rgba(38,38,38,0.8);
+  top: -32px;
+  left: -9px;
+}
+.video-js.gaia .vjs-volume-bar.vjs-slider-vertical {
+  width: 8px;
+  height: 72px;
+  border: 1px solid #666;
+  background: none;
+}
+.video-js.gaia .vjs-volume-menu-button.vjs-volume-menu-button-vertical:before {
+  line-height: 50px;
+}
+.video-js.gaia .vjs-volume-bar.vjs-slider-vertical .vjs-volume-level{
+  width: 6px;
+  background: #ff575c;
+}
+
+.video-js.gaia .vjs-volume-bar.vjs-slider-vertical .vjs-volume-level:before{
+  content: "";
+  top: -3px;
+  left: -1px;
+  width: 8px;
+  height: 3px;
+  background: #ff575c;
+}

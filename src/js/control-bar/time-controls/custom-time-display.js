@@ -1,4 +1,7 @@
 /**
+ * Created by taox on 16-2-14.
+ */
+/**
  * @file remaining-time-display.js
  */
 import Component from '../../component.js';
@@ -13,7 +16,7 @@ import formatTime from '../../utils/format-time.js';
  * @extends Component
  * @class RemainingTimeDisplay
  */
-class RemainingTimeDisplay extends Component {
+class CustomTimeDisplay extends Component {
 
   constructor(player, options){
     super(player, options);
@@ -35,7 +38,7 @@ class RemainingTimeDisplay extends Component {
     this.contentEl_ = Dom.createEl('div', {
       className: 'vjs-remaining-time-display',
       // label the remaining time for screen reader users
-      innerHTML: `<span class="vjs-control-text">${this.localize('Remaining Time')}</span> 0:00 | 0:00`,
+      innerHTML: `<span class="vjs-control-text">${this.localize('Time')}</span> 0:00 | 0:00`
     }, {
       // tell screen readers not to automatically read the time as it changes
       'aria-live': 'off'
@@ -68,5 +71,5 @@ class RemainingTimeDisplay extends Component {
 
 }
 
-Component.registerComponent('RemainingTimeDisplay', RemainingTimeDisplay);
-export default RemainingTimeDisplay;
+Component.registerComponent('CustomTimeDisplay', CustomTimeDisplay);
+export default CustomTimeDisplay;
