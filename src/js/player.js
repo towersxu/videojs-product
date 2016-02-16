@@ -2746,7 +2746,7 @@ Player.prototype.options_ = {
     'posterImage',
     'textTrackDisplay',
     'loadingSpinner',
-    'bigPlayButton',
+    //'bigPlayButton',
     'controlBar',
     'errorDisplay',
     'textTrackSettings'

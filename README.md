@@ -1,59 +1,136 @@
-![Video.js logo](http://videojs.com/img/logo.png)
-
-# [Video.js - HTML5 Video Player](http://videojs.com)  [![Build Status](https://travis-ci.org/videojs/video.js.svg?branch=master)](https://travis-ci.org/videojs/video.js)
-
-> Video.js is a web video player built from the ground up for an HTML5 world. It supports HTML5 and Flash video, as well as YouTube and Vimeo (through [plugins](https://github.com/videojs/video.js/wiki/Plugins)). It supports video playback on desktops and mobile devices. This project was started mid 2010, and the player is now used on over ~~50,000~~ ~~100,000~~ 200,000 websites.
-
-## Quick start
-Thanks to the awesome folks over at [Fastly](http://www.fastly.com/), there's a free, CDN hosted version of Video.js that anyone can use.
-Also, check out the [Getting Started](http://videojs.com/getting-started/) page on our website which has the latest urls as well.
-Simply add these includes to your document's
-`<head>`:
-
-```html
-<link href="//vjs.zencdn.net/5.0/video-js.min.css" rel="stylesheet">
-<script src="//vjs.zencdn.net/5.0/video.min.js"></script>
-```
-
-Then, whenever you want to use Video.js you can simply use the `<video>` element as your normally would, but with an additional `data-setup` attribute containing any Video.js options. These options
-can include any Video.js option plus potential [plugin](http://videojs.com/plugins/) options, just make sure they're valid JSON!
-
-```html
-<video id="really-cool-video" class="video-js vjs-default-skin" controls
- preload="auto" width="640" height="264" poster="really-cool-video-poster.jpg"
- data-setup='{}'>
-  <source src="really-cool-video.mp4" type="video/mp4">
-  <source src="really-cool-video.webm" type="video/webm">
-  <p class="vjs-no-js">
-    To view this video please enable JavaScript, and consider upgrading to a web browser
-    that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-  </p>
-</video>
-```
-
-If you don't want to use auto-setup, you can leave off the `data-setup` attribute and initialize a video element manually.
-
+##修改内容
+<p align="center"><img width="100"src="https://github.com/towersxu/sandbox/img/demo.png"></p>
+### 移除`bigPlayButton`
+使用自定义的控制条作为播放控制器。
+- player.js
 ```javascript
-var player = videojs('really-cool-video', { /* Options */ }, function() {
-  console.log('Good to go!');
+    children: [
+        'mediaLoader',
+        'posterImage',
+        'textTrackDisplay',
+        'loadingSpinner',
+        //'bigPlayButton',
+        'controlBar',
+        'errorDisplay',
+        'textTrackSettings'
+      ],
 
-  this.play(); // if you don't trust autoplay for some reason
-
-  // How about an event listener?
-  this.on('ended', function() {
-    console.log('awww...over so soon?');
-  });
-});
 ```
 
-If you're ready to dive in, the [documentation](http://docs.videojs.com) is the first place to go for more information.
+```scss
+    .video-js.show-control .vjs-control-bar{
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      visibility: visible;
+      opacity: 1;
+      -webkit-transition: visibility 0.1s, opacity 0.1s;
+      -moz-transition: visibility 0.1s, opacity 0.1s;
+      -o-transition: visibility 0.1s, opacity 0.1s;
+      transition: visibility 0.1s, opacity 0.1s;
+    }
+```
 
-## Contributing
-Video.js is a free and open source library, and we appreciate any help you're willing to give. Check out the [contributing guide](CONTRIBUTING.md).
+```html
+    <video id="vid1" class="video-js gaia show-control vjs-default-skin " controls preload="auto" width="860" height="482" poster="img/B3.jpg">
+      <source src="http://vjs.zencdn.net/v/oceans.mp4" type="video/mp4">
+      <source src="http://vjs.zencdn.net/v/oceans.webm" type="video/webm">
+      <source src="http://vjs.zencdn.net/v/oceans.ogv" type="video/ogg">
+      <p>Video Playback Not Supported</p>
+    </video>
+```
+增加class show-control,将vjs-control-bar display属性设置为flex.
 
-_Video.js uses [BrowserStack](https://browserstack.com) for compatibility testing_
-## Building your own Video.js from source
-To build your own custom version read the section on [contributing code](CONTRIBUTING.md#contributing-code) and ["Building your own copy"](CONTRIBUTING.md#building-your-own-copy-of-videojs) in the contributing guide.
-## License
+###time-control
+将时间修改为00：00
+```javascript
+    //remaining-time-display
+  let time = (this.player_.scrubbing()) ? this.player_.getCache().currentTime : this.player_.currentTime();
+  let formattedTime = formatTime(time, this.player_.duration());
+  let formattedTime1 = formatTime(this.player_.duration());
+  this.contentEl_.innerHTML = `<span class="vjs-control-text">${localizedText}</span>${formattedTime} | ${formattedTime1}`;
+```
 
-Video.js is licensed under the Apache License, Version 2.0. [View the license file](LICENSE)
+###分辨率选择
+增加分辨率选择组件，play-resolutions.js
+
+调用方式：
+```javascript
+  vid1 = videojs('vid1',{
+    controlBar: {
+      volumeMenuButton: {
+        inline: false,
+        vertical: true
+      },
+      PlayResolutions:{
+        idx:2,   //默认使用分辨率序号，videos序号 0开始
+        videos:[
+          {
+            name:'2K',
+            src:'./m3u8/2K.m3u8',
+            type: 'application/vnd.apple.mpegurl'
+          },
+          {
+            name:'1080p',
+            src:'./m3u8/1080.m3u8',
+            type: 'application/vnd.apple.mpegurl'
+          },
+          {
+            name:'720p',
+            src:'./m3u8/720.m3u8',
+            type: 'application/vnd.apple.mpegurl'
+          },
+          {
+            name:'480p',
+            src:'./m3u8/480.m3u8',
+            type: 'application/vnd.apple.mpegurl'
+          }
+        ]
+      }
+    }
+  });
+```
+
+###长宽比选择
+增加长宽比选择组件，play-ratio.js
+```javascript
+  PlayerRatio:{
+    idx:1,
+    ratios:[
+      {
+        name:'16:9',
+        width:'860',
+        height:'483'
+      },
+      {
+        name:'4:3',
+        width:'860',
+        height:'645'
+      }
+    ]
+  }
+```
+
+###logo
+在toolbar中增加logo logo-text.js
+```javascript
+  LogoText:{
+    click:function(){
+      console.log('this is logo');
+    }
+  }
+```
+click点击调用函数。
+```scss
+  .video-js.gaia .vjs-logo-control:before{
+    border-left: 1px solid #666;
+    border-right: none;
+    content: '';
+    background: url("/favicon.ico") center center no-repeat;
+    display: inline-block;
+    width: 66px;
+    height: 50px;
+  }
+```
+默认使用favicon图标

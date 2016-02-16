@@ -1,10 +1,36 @@
 .video-js.gaia .vjs-control-bar {
   bottom: 20px;
-  left: 45px;
   width: 770px;
   height: 50px;
+  margin: 0 auto;
   border-radius: 6px;
   background: rgba(38,38,38,0.9);
+}
+.video-js.show-control .vjs-control-bar{
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: visibility 0.1s, opacity 0.1s;
+  -moz-transition: visibility 0.1s, opacity 0.1s;
+  -o-transition: visibility 0.1s, opacity 0.1s;
+  transition: visibility 0.1s, opacity 0.1s;
+}
+.no-flexbox .video-js.show-control .vjs-control-bar{
+  display: block;
+}
+
+.video-js.gaia .vjs-control:before{
+  font-size: 24px;
+  line-height: 50px;
+  color: #cacaca;
+}
+.video-js.gaia .vjs-icon-cog{
+  font-size: 24px;
+  line-height: 50px;
+  color: #cacaca;
 }
 .video-js.gaia .vjs-play-control{
   width: 66px;
@@ -14,6 +40,10 @@
   line-height: 50px;
   border-right: 1px solid #666;
 }
+.video-js.gaia .vjs-play-control.vjs-subtitle-control:before {
+  border-left: 1px solid #666;
+  border-right: none;
+}
 .video-js.gaia .vjs-time-control{
   width: 8em;
   text-align: center;
@@ -21,11 +51,11 @@
   color: gray;
 }
 .video-js.gaia .vjs-progress-control{
-  width: 350px;
+  width: 330px;
 }
 .video-js.gaia .vjs-progress-control .vjs-slider{
   margin: 20px 5px;
-  width: 340px;
+  width: 320px;
   height: 8px;
   background: none;
   border: 1px solid #666;
@@ -72,7 +102,11 @@
   position: absolute;
   width: 74px;
   bottom: 50px;
+  left: 0;
   display: none;
+}
+.video-js.gaia .vjs-gaia-resolution.ratio{
+  left: -40%;
 }
 .video-js.gaia .vjs-gaia-resolution .tabs{
   padding-top: 10px;
@@ -85,6 +119,10 @@
   height: 20px;
   line-height: 20px;
   color: #b2b2b2;
+  text-align: center;
+}
+.video-js.gaia .vjs-gaia-resolution .tabs .tab.selected{
+  color: #ff575c;
 }
 .video-js.gaia .vjs-gaia-resolution .tabs .tab:hover{
   color: #fff;
@@ -122,4 +160,18 @@
   width: 8px;
   height: 3px;
   background: #ff575c;
+}
+.video-js.gaia .vjs-live-control.setting{
+  line-height: 50px;
+  width: 40px;
+  cursor: pointer;
+}
+.video-js.gaia .vjs-logo-control:before{
+  border-left: 1px solid #666;
+  border-right: none;
+  content: '';
+  background: url("/favicon.ico") center center no-repeat;
+  display: inline-block;
+  width: 66px;
+  height: 50px;
 }

@@ -5,7 +5,7 @@ import Component from '../component';
 import * as Dom from '../utils/dom.js';
 
 /**
- * Displays the live indicator
+ * 分辨率选择控件
  * TODO - Future make it click to snap to live
  *
  * @extends Component
@@ -15,9 +15,48 @@ class PlayResolutions extends Component {
 
   constructor(player, options) {
     super(player, options);
-
     this.updateShowing();
     this.on(this.player(), 'durationchange', this.updateShowing);
+    this.on(this.player(),'ready',() => {
+      if(arguments && arguments[1]){
+        var videos = arguments[1].videos || [];
+        var idx = arguments[1].idx || 0;
+        var html = '<div class="tabs">';
+        for(let i=0;i<videos.length;i++){
+          html += '<div class="tab" t="'+videos[i].type+'" val="'+videos[i].src+'">'+videos[i].name+'</div>';
+        }
+        html += '</div>';
+        var domEl = this.el();
+        this.contentEl2_ = Dom.createEl('div',{
+          className:'vjs-gaia-resolution',
+          innerHTML:html
+        });
+        domEl.appendChild(this.contentEl2_);
+        this.contentEl_.innerHTML=videos[idx].name;
+        var player = this.player();
+        player.src({
+          src: videos[idx].src,
+          type: videos[idx].type || 'video/mp4'
+        });
+        player.progressed();
+      }
+    });
+    this.on('click',(e) => {
+      var el = e.target.getAttribute('val');
+      var name = e.target.innerText;
+      var type = e.target.getAttribute('t');
+      if(el){
+        var player = this.player();
+        var playTime = player.currentTime();
+        player.src({
+          src: el,
+          type: type || 'video/mp4'
+        });
+        player.currentTime(playTime);
+        player.play();
+        this.contentEl_.innerHTML=name;
+      }
+    });
   }
 
   /**
@@ -37,11 +76,6 @@ class PlayResolutions extends Component {
     }, {
       'aria-live': 'off'
     });
-    this.contentEl2_ = Dom.createEl('div',{
-      className:'vjs-gaia-resolution',
-      innerHTML:'<div class="tabs"><div class="tab" val="4k">4K</div><div class="tab" val="2k">2K</div><div class="tab" val="1080p">1080P</div><div class="tab" val="720p">720P</div></div>'
-    });
-    el.appendChild(this.contentEl2_);
     el.appendChild(this.contentEl_);
     return el;
   }
