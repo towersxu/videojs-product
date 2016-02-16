@@ -12,8 +12,6 @@ test/*.map
 node_modules
 npm-debug.log
 
-sandbox/*
-!sandbox/*.example
 
 *.swp
 *.swo

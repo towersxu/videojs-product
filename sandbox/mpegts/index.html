@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html" charset="utf-8">
+	<title>HLS converter and player demo</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<!--<script src="shim/console.time.js"></script>-->
+
+	<!-- Yandex.Metrika counter -->
+	<!--<script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter23392234 = new Ya.Metrika({id:23392234, clickmap:true, trackLinks:true, accurateTrackBounce:true, trackHash:true}); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="//mc.yandex.ru/watch/23392234" style="position:absolute; left:-9999px;" alt="" /></div></noscript>-->
+	<!-- /Yandex.Metrika counter -->
+</head>
+<body class="loading" style="text-align: center">
+
+	<main>
+		<div id="video-streaming"><canvas id="canvas"></canvas></div>
+		<br />
+		<input class="button orange" type="button" id="play" value="► Play" />
+		<input class="button black" type="button" id="pause" value="◼ Pause" />
+		<input class="button yellow" type="button" id="ended" value="◼ ended" />
+	</main>
+	
+	<img id="loading-indicator" src="assets/ajax-loader.gif" />
+
+	<script src="browser.js" data-canvas="canvas" data-hls="../m3u8/480.m3u8">
+//	<script src="browser.js" data-canvas="canvas" data-hls="http://192.168.1.36:81/hls-live/livepkgr/_definst_/liveevent/123456.m3u8">
+		// UI initialization when first video chunk is converted
+
+		document.body.classList.remove('loading');
+
+		var converter = this;
+
+		['play', 'pause'].forEach(function (action) {
+			document.getElementById(action).addEventListener('click', function () {
+				document.body.classList.toggle('paused');
+				converter.currentVideo[action]();
+			});
+		});
+		console.log(hls);
+		document.getElementById('ended').addEventListener('click',function(){
+			if(hls){
+				hls.setMainfest()
+				hls.getMore();
+			}
+		});
+	</script>
+</body>
+</html>
+1
