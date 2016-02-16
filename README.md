@@ -1,5 +1,5 @@
 ##修改内容
-<p align="center"><img width="100"src="https://github.com/towersxu/vedio.js/sandbox/img/demo.png"></p>
+<p align="center"><img width="100"src="http://4.tophp.sinaapp.com/demo.png"></p>
 ### 移除`bigPlayButton`
 使用自定义的控制条作为播放控制器。
 - player.js
