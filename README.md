@@ -134,3 +134,18 @@ click点击调用函数。
   }
 ```
 默认使用favicon图标
+
+
+###关于hls aes加密下的一个坑
+```javascript
+  if (error || !request.response || request.response.byteLength !== 16) {
+          key.retries = key.retries || 0;
+          key.retries++;
+          if (!request.aborted) {
+            // try fetching again
+            self.fetchKey_(segment);
+          }
+          return;
+        }
+```
+注意，如果请求的是一个文件，并且该文件是被IDE进行了修改的。IDE一般都会在文件后面加一个换行符。这回导致这里判断失败。

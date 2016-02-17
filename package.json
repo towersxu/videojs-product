@@ -86,6 +86,7 @@
     "sinon": "^1.16.1",
     "time-grunt": "^1.1.1",
     "uglify-js": "~2.3.6",
+    "videojs-contrib-hls": "^1.3.8",
     "videojs-doc-generator": "0.0.1"
   },
   "standard": {

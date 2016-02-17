@@ -5310,7 +5310,7 @@ videojs.HlsHandler.prototype.fetchKey_ = function(segment) {
       var view;
       self.keyXhr_ = null;
 
-      if (error || !request.response || request.response.byteLength !== 16) {
+      if (error || !request.response || (request.response.byteLength !== 16 && request.response.byteLength !== 17)) {
         key.retries = key.retries || 0;
         key.retries++;
         if (!request.aborted) {
@@ -6499,7 +6499,7 @@ resolveUrl = videojs.Hls.resolveUrl = function(basePath, path) {
 
         // any in-flight request is now finished
         request = null;
-        
+
         if (startingState) {
           loader.state = startingState;
         }
