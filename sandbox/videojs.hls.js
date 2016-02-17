@@ -5310,7 +5310,7 @@ videojs.HlsHandler.prototype.fetchKey_ = function(segment) {
       var view;
       self.keyXhr_ = null;
 
-      if (error || !request.response || (request.response.byteLength !== 16 && request.response.byteLength !== 17)) {
+      if (error || !request.response || request.response.byteLength !== 16) {
         key.retries = key.retries || 0;
         key.retries++;
         if (!request.aborted) {
