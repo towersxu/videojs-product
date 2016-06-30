@@ -55,13 +55,42 @@ test('should add a child component', function(){
   ok(comp.getChildById(child.id()) === child);
 });
 
+test('should add a child component to an index', function(){
+  var comp = new Component(getFakePlayer());
+
+  var child = comp.addChild('component');
+
+  ok(comp.children().length === 1);
+  ok(comp.children()[0] === child);
+
+  var child0 = comp.addChild('component', {}, 0);
+  ok(comp.children().length === 2);
+  ok(comp.children()[0] === child0);
+  ok(comp.children()[1] === child);
+
+  var child1 = comp.addChild('component', {}, '2');
+  ok(comp.children().length === 3);
+  ok(comp.children()[2] === child1);
+
+  var child2 = comp.addChild('component', {}, undefined);
+  ok(comp.children().length === 4);
+  ok(comp.children()[3] === child2);
+
+  var child3 = comp.addChild('component', {}, -1);
+  ok(comp.children().length === 5);
+  ok(comp.children()[3] === child3);
+  ok(comp.children()[4] === child2);
+});
+
 test('addChild should throw if the child does not exist', function() {
   var comp = new Component(getFakePlayer());
 
   throws(function() {
-    comp.addChild('non-existent-child');
+   comp.addChild('non-existent-child');
   }, new Error('Component Non-existent-child does not exist'), 'addChild threw');
+
 });
+
 
 test('should init child components from options', function(){
   var comp = new Component(getFakePlayer(), {
@@ -543,6 +572,34 @@ test('should change the width and height of a component', function(){
   ok(comp.height() === 0, 'forced height was removed');
 });
 
+test('should get the computed dimensions', function(){
+  const container = document.createElement('div');
+  const comp = new Component(getFakePlayer(), {});
+  const el = comp.el();
+  const fixture = document.getElementById('qunit-fixture');
+
+  const computedWidth = '500px';
+  const computedHeight = '500px';
+
+  fixture.appendChild(container);
+  container.appendChild(el);
+  // Container of el needs dimensions or the component won't have dimensions
+  container.style.width = '1000px';
+  container.style.height = '1000px';
+
+  comp.width('50%');
+  comp.height('50%');
+
+  equal(comp.currentWidth() + 'px', computedWidth, 'matches computed width');
+  equal(comp.currentHeight() + 'px', computedHeight, 'matches computed height');
+
+  equal(comp.currentDimension('width') + 'px', computedWidth, 'matches computed width');
+  equal(comp.currentDimension('height') + 'px', computedHeight, 'matches computed height');
+
+  equal(comp.currentDimensions()['width'] + 'px', computedWidth, 'matches computed width');
+  equal(comp.currentDimensions()['height'] + 'px', computedHeight, 'matches computed width');
+
+});
 
 test('should use a defined content el for appending children', function(){
   class CompWithContent extends Component {}

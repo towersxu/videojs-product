@@ -23,7 +23,9 @@ class MenuButton extends ClickableComponent {
 
     this.update();
 
-    this.el_.setAttribute('aria-haspopup', true);
+    this.enabled_ = true;
+
+    this.el_.setAttribute('aria-haspopup', 'true');
     this.el_.setAttribute('role', 'menuitem');
     this.on('keydown', this.handleSubmenuKeyPress);
   }
@@ -50,7 +52,7 @@ class MenuButton extends ClickableComponent {
      * @private
      */
     this.buttonPressed_ = false;
-    this.el_.setAttribute('aria-expanded', false);
+    this.el_.setAttribute('aria-expanded', 'false');
 
     if (this.items && this.items.length === 0) {
       this.hide();
@@ -70,11 +72,13 @@ class MenuButton extends ClickableComponent {
 
     // Add a title list item to the top
     if (this.options_.title) {
-      menu.contentEl().appendChild(Dom.createEl('li', {
+      let title = Dom.createEl('li', {
         className: 'vjs-menu-title',
         innerHTML: toTitleCase(this.options_.title),
         tabIndex: -1
-      }));
+      });
+      menu.children_.unshift(title);
+      Dom.insertElFirst(title, menu.contentEl());
     }
 
     this.items = this['createItems']();
@@ -202,10 +206,12 @@ class MenuButton extends ClickableComponent {
    * @method pressButton
    */
   pressButton() {
-    this.buttonPressed_ = true;
-    this.menu.lockShowing();
-    this.el_.setAttribute('aria-expanded', true);
-    this.menu.focus(); // set the focus into the submenu
+    if (this.enabled_) {
+      this.buttonPressed_ = true;
+      this.menu.lockShowing();
+      this.el_.setAttribute('aria-expanded', 'true');
+      this.menu.focus(); // set the focus into the submenu
+    }
   }
 
   /**
@@ -214,10 +220,41 @@ class MenuButton extends ClickableComponent {
    * @method unpressButton
    */
   unpressButton() {
+    if (this.enabled_) {
+      this.buttonPressed_ = false;
+      this.menu.unlockShowing();
+      this.el_.setAttribute('aria-expanded', 'false');
+      this.el_.focus(); // Set focus back to this menu button
+    }
+  }
+
+  /**
+   * Disable the menu button
+   *
+   * @return {Component}
+   * @method disable
+   */
+  disable() {
+    // Unpress, but don't force focus on this button
     this.buttonPressed_ = false;
     this.menu.unlockShowing();
-    this.el_.setAttribute('aria-expanded', false);
-    this.el_.focus(); // Set focus back to this menu button
+    this.el_.setAttribute('aria-expanded', 'false');
+
+    this.enabled_ = false;
+
+    return super.disable();
+  }
+
+  /**
+   * Enable the menu button
+   *
+   * @return {Component}
+   * @method disable
+   */
+  enable() {
+    this.enabled_ = true;
+
+    return super.enable();
   }
 }
 

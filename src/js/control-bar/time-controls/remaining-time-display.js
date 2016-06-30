@@ -53,12 +53,19 @@ class RemainingTimeDisplay extends Component {
   updateContent() {
     if (this.player_.duration()) {
       const localizedText = this.localize('Remaining Time');
+
       //const formattedTime = formatTime(this.player_.remainingTime());
       //console.log(this.player_.remainingTime());
       let time = (this.player_.scrubbing()) ? this.player_.getCache().currentTime : this.player_.currentTime();
       let formattedTime = formatTime(time, this.player_.duration());
       let formattedTime1 = formatTime(this.player_.duration());
       this.contentEl_.innerHTML = `<span class="vjs-control-text">${localizedText}</span>${formattedTime} | ${formattedTime1}`;
+
+      // const formattedTime = formatTime(this.player_.remainingTime());
+      // if (formattedTime !== this.formattedTime_) {
+      //   this.formattedTime_ = formattedTime;
+      //   this.contentEl_.innerHTML = `<span class="vjs-control-text">${localizedText}</span> -${formattedTime}`;
+      // }
     }
 
     // Allows for smooth scrubbing, when player can't keep up.

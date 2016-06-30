@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <title>Video.js Sandbox</title>
@@ -37,7 +37,7 @@
   </video>
 
   <script>
-    vid = document.getElementById("vid1");
+    var vid = document.getElementById("vid1");
   </script>
 
 </body>

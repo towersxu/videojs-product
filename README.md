@@ -1,3 +1,4 @@
+
 ##修改内容
 <p align="center"><img width="800"src="http://4.tophp.sinaapp.com/demo.png"></p>
 ### 移除`bigPlayButton`
@@ -14,7 +15,6 @@
         'errorDisplay',
         'textTrackSettings'
       ],
-
 ```
 
 ```scss

@@ -7,7 +7,6 @@ import Popup from '../popup/popup.js';
 import PopupButton from '../popup/popup-button.js';
 import MuteToggle from './mute-toggle.js';
 import VolumeBar from './volume-control/volume-bar.js';
-import document from 'global/document';
 
 /**
  * Button for volume popup
@@ -108,6 +107,7 @@ class VolumeMenuButton extends PopupButton {
 
     popup.addChild(vb);
 
+    this.menuContent = popup;
     this.volumeBar = vb;
 
     this.attachVolumeBarEvents();
@@ -126,12 +126,12 @@ class VolumeMenuButton extends PopupButton {
   }
 
   attachVolumeBarEvents() {
-    this.on(['mousedown', 'touchdown'], this.handleMouseDown);
+    this.menuContent.on(['mousedown', 'touchdown'], Fn.bind(this, this.handleMouseDown));
   }
 
   handleMouseDown(event) {
     this.on(['mousemove', 'touchmove'], Fn.bind(this.volumeBar, this.volumeBar.handleMouseMove));
-    this.on(document, ['mouseup', 'touchend'], this.handleMouseUp);
+    this.on(this.el_.ownerDocument, ['mouseup', 'touchend'], this.handleMouseUp);
   }
 
   handleMouseUp(event) {

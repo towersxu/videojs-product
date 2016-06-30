@@ -1,6 +1,7 @@
 /**
  * @file video.js
  */
+import window from 'global/window';
 import document from 'global/document';
 import * as setup from './setup';
 import * as stylesheet from './utils/stylesheet.js';
@@ -12,6 +13,8 @@ import plugin from './plugins.js';
 import mergeOptions from '../../src/js/utils/merge-options.js';
 import * as Fn from './utils/fn.js';
 import TextTrack from './tracks/text-track.js';
+import AudioTrack from './tracks/audio-track.js';
+import VideoTrack from './tracks/video-track.js';
 
 import assign from 'object.assign';
 import { createTimeRanges } from './utils/time-ranges.js';
@@ -52,7 +55,7 @@ if (typeof HTMLVideoElement === 'undefined') {
  * @mixes videojs
  * @method videojs
  */
-let videojs = function(id, options, ready){
+function videojs(id, options, ready){
   let tag; // Element of ID
 
   // Allow for element or ID to be passed in
@@ -96,24 +99,27 @@ let videojs = function(id, options, ready){
   // Element may have a player attr referring to an already created player instance.
   // If not, set up a new player and return the instance.
   return tag['player'] || Player.players[tag.playerId] || new Player(tag, options, ready);
-};
+}
 
 // Add default styles
-let style = Dom.$('.vjs-styles-defaults');
-if (!style) {
-  style = stylesheet.createStyleElement('vjs-styles-defaults');
-  let head = Dom.$('head');
-  head.insertBefore(style, head.firstChild);
-  stylesheet.setTextContent(style, `
-    .video-js {
-      width: 300px;
-      height: 150px;
-    }
+if (window.VIDEOJS_NO_DYNAMIC_STYLE !== true) {
+  let style = Dom.$('.vjs-styles-defaults');
 
-    .vjs-fluid {
-      padding-top: 56.25%
-    }
-  `);
+  if (!style) {
+    style = stylesheet.createStyleElement('vjs-styles-defaults');
+    let head = Dom.$('head');
+    head.insertBefore(style, head.firstChild);
+    stylesheet.setTextContent(style, `
+      .video-js {
+        width: 300px;
+        height: 150px;
+      }
+
+      .vjs-fluid {
+        padding-top: 56.25%
+      }
+    `);
+  }
 }
 
 // Run Auto-load players
@@ -544,6 +550,22 @@ videojs.xhr = xhr;
  * @type {Function}
  */
 videojs.TextTrack = TextTrack;
+
+/**
+ * export the AudioTrack class so that source handlers can create
+ * AudioTracks and then add them to the players AudioTrackList
+ *
+ * @type {Function}
+ */
+videojs.AudioTrack = AudioTrack;
+
+/**
+ * export the VideoTrack class so that source handlers can create
+ * VideoTracks and then add them to the players VideoTrackList
+ *
+ * @type {Function}
+ */
+videojs.VideoTrack = VideoTrack;
 
 /**
  * Determines, via duck typing, whether or not a value is a DOM element.

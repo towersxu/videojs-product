@@ -149,9 +149,17 @@ module.exports = function(grunt) {
     },
     dist: {},
     watch: {
+      novtt: {
+        files: ['build/temp/video.js'],
+        tasks: ['concat:novtt']
+      },
+      minify: {
+        files: ['build/temp/video.js'],
+        tasks: ['uglify']
+      },
       skin: {
         files: ['src/css/**/*'],
-        tasks: ['sass', 'wrapcodepoints']
+        tasks: ['sass']
       },
       jshint: {
         files: ['src/**/*', 'test/unit/**/*.js', 'Gruntfile.js'],
@@ -188,7 +196,7 @@ module.exports = function(grunt) {
       minify: {
         expand: true,
         cwd: 'build/temp/',
-        src: ['video-js.css'],
+        src: ['video-js.css', 'alt/video-js-cdn.css'],
         dest: 'build/temp/',
         ext: '.min.css'
       }
@@ -196,7 +204,8 @@ module.exports = function(grunt) {
     sass: {
       build: {
         files: {
-          'build/temp/video-js.css': 'src/css/vjs.scss'
+          'build/temp/video-js.css': 'src/css/vjs.scss',
+          'build/temp/alt/video-js-cdn.css': 'src/css/vjs-cdn.scss'
         }
       }
     },
@@ -396,7 +405,7 @@ module.exports = function(grunt) {
         options: {
           separator: '\n',
         },
-        src: ['build/temp/video.js', 'node_modules/vtt.js/dist/vtt.js'],
+        src: ['build/temp/video.js', 'node_modules/videojs-vtt.js/dist/vtt.js'],
         dest: 'build/temp/video.js',
       },
     },
@@ -441,6 +450,7 @@ module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
   grunt.loadNpmTasks('videojs-doc-generator');
   grunt.loadNpmTasks('chg');
+  grunt.loadNpmTasks('gkatsev-grunt-sass');
 
   const buildDependents = [
     'clean:build',
@@ -455,7 +465,6 @@ module.exports = function(grunt) {
     'uglify',
 
     'sass',
-    'wrapcodepoints',
     'version:css',
     'cssmin',
 
@@ -480,16 +489,7 @@ module.exports = function(grunt) {
     'zip:dist'
   ]);
 
-  // Sass turns unicode codepoints into utf8 characters.
-  // We don't want that so we unwrapped them in the templates/scss.hbs file.
-  // After sass has generated our css file, we need to wrap the codepoints
-  // in quotes for it to work.
-  grunt.registerTask('wrapcodepoints', function() {
-    const sassConfig = grunt.config.get('sass.build.files');
-    const cssPath = Object.keys(sassConfig)[0];
-    const css = grunt.file.read(cssPath);
-    grunt.file.write(cssPath, css.replace(/(\\f\w+);/g, "'$1';"));
-  });
+  grunt.registerTask('skin', ['sass']);
 
   // Default task - build and test
   grunt.registerTask('default', ['test']);
