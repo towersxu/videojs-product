@@ -6,15 +6,16 @@
   <script src="modernizr-2.8.3.min.js"></script>
   <link href="../build/temp/video-js.css" rel="stylesheet" type="text/css">
   <script src="../build/temp/video.js"></script>
-  <script src="videojs.hls.js"></script>
+  <script src="videojs.hls.min.js"></script>
 
 </head>
 <body>
-<video id="vid1" class="video-js gaia show-control vjs-default-skin " controls preload="auto" width="860" height="482" poster="img/B3.jpg">
-  <p>Video Playback Not Supported</p>
+<video id="vid1" class="video-js gaia show-control vjs-default-skin " controls preload="auto" width="860" height="482">
+  <!--<source src="rtmp://cp67126.edgefcs.net/ondemand/&mp4:mediapm/ovp/content/test/video/spacealonehd_sounas_640_300.mp4" type='rtmp/mp4'>-->
 </video>
 
 <script>
+  var a = [];
   (function() {
     var vid1, progressed,volumeMenuButton;
 
@@ -32,53 +33,51 @@
 
     // initialize it
     vid1 = videojs('vid1',{
+      poster:'http://7xrmyu.com1.z0.glb.clouddn.com/1419408695022_000.jpg',
+      techOrder: ["html5","flash"],
       controlBar: {
         volumeMenuButton: {
           inline: false,
           vertical: true
         },
         PlayResolutions:{
-          idx:1,   //0-n
+          idx:0,   //0-n
           videos:[
             {
-              name:'2K',
-              src:'http://7xqjp2.com1.z0.glb.clouddn.com/V2gXjbEhXSwOCrTMZXKwYd_5-X4=/llGCcDjuHktaCEs5BUsMRmpn1Weu ',
-              type: 'application/vnd.apple.mpegurl'
+              name:'mpg4-visual',
+              src:'http://7xqjp2.com1.z0.glb.clouddn.com/5089.mp4',
+              type: 'video/mp4'
             },
             {
-              name:'AES',
-              src:'http://7xqjp2.com1.z0.glb.clouddn.com/V2gXjbEhXSwOCrTMZXKwYd_5-X4=/llGCcDjuHktaCEs5BUsMRmpn1Weu ',
-              type: 'application/vnd.apple.mpegurl'
+              name:'encode',
+              src:'http://7xqjp2.com1.z0.glb.clouddn.com/5089new.mp4',
+              type: 'video/mp4'
             },
             {
-              name:'1080p',
-              src:'./m3u8/1080.m3u8',
-              type: 'application/vnd.apple.mpegurl'
+              name:'mp4',
+              src:'http://7xqjp2.com1.z0.glb.clouddn.com/James%20Blunt%20-%20If%20Time%20Is%20All%20I%20Have.mp4',
+              type: 'video/mp4'
             },
             {
-              name:'720p',
-              src:'./m3u8/720.m3u8',
-              type: 'application/vnd.apple.mpegurl'
+              name:'转码中',
+              src:'',
+              type: 'video/mp4',
+              errorMessage:'视频正在转码中,暂时不能播放...'
             },
             {
-              name:'480p',
-              src:'./m3u8/480.m3u8',
-              type: 'application/vnd.apple.mpegurl'
-            }
-          ]
-        },
-        PlayerRatio:{
-          idx:1,
-          ratios:[
-            {
-              name:'16:9',
-              width:'860',
-              height:'483'
+              name:'mp3',
+              src:'http://7xqjp2.com1.z0.glb.clouddn.com/Ingrid%20Michaelson%20-%20Time%20Machine.mp3',
+              type: 'audio/mp3'
             },
             {
-              name:'4:3',
-              width:'860',
-              height:'645'
+              name:'big mp4',
+              src:'http://7xqjp2.com1.z0.glb.clouddn.com/Adele%20-%20Hello.mp4',
+              type: 'video/mp4'
+            },
+            {
+              name:'m3u8',
+              src:'http://qn.4ye.cc/video/607277.mp4.m3u8',
+              type:'application/vnd.apple.mpegurl'
             }
           ]
         },
@@ -89,7 +88,32 @@
         }
       }
     });
+    console.log(vid1);
+//    vid1.src({
+//      src:'rtmp://cp67126.edgefcs.net/ondemand/&mp4:mediapm/ovp/content/test/video/spacealonehd_sounas_640_300.mp4',
+//      type: 'rtmp/mp4'
+//    })
+    vid1.on('firstplay',function(){
+      console.log('first play..')
+      console.log(vid1.duration())
+      a.length = 10000;
+    });
 
+    vid1.on('timeupdate',function(){
+//      console.log(vid1.currentTime());
+      var t = vid1.currentTime();
+      setEle(Math.ceil(Math.random()*10000));
+    });
+    var delay = false;
+    function setEle(num){
+      if(!delay){
+        delay = true;
+        a[num] = 0;
+        setTimeout(function(){
+          delay = false;
+        },500)
+      }
+    }
   })();
 </script>
 

@@ -63,10 +63,10 @@ MediaError.errorTypes = [
 
 MediaError.defaultMessages = {
   1: 'You aborted the media playback',
-  2: 'A network error caused the media download to fail part-way.',
-  3: 'The media playback was aborted due to a corruption problem or because the media used features your browser did not support.',
-  4: 'The media could not be loaded, either because the server or network failed or because the format is not supported.',
-  5: 'The media is encrypted and we do not have the keys to decrypt it.'
+  2: '网络出现故障',
+  3: '对不起,无法播放视频,请使用最新版的chrome,IE或者360急速浏览器等',
+  4: '对不起,不支持此格式视频的直接播放',
+  5: '视频被加密了,无法播放'
 };
 
 // Add types as properties on MediaError

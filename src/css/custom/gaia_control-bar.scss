@@ -174,4 +174,16 @@
   display: inline-block;
   width: 66px;
   height: 50px;
+  cursor:default;
+}
+.vjs-controls-disabled.show-poster .vjs-poster{
+  display:inherit;
+}
+.video-js.gaia .vjs-progress-holder .vjs-load-progress div{
+  height:6px;
+  top:1px;
+}
+.vjs-error.gaia .vjs-control-bar{
+  display: flex !important;
+  z-index: 2;
 }

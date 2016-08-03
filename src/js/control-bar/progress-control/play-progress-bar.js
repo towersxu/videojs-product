@@ -28,12 +28,10 @@ class PlayProgressBar extends Component {
         options.playerOptions.controlBar.progressControl.keepTooltipsInside) {
       this.keepTooltipsInside = options.playerOptions.controlBar.progressControl.keepTooltipsInside;
     }
-
     if (this.keepTooltipsInside) {
       this.addClass('vjs-keep-tooltips-inside');
     }
   }
-
   /**
    * Create the component's DOM element
    *

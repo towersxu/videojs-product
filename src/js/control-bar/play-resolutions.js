@@ -3,6 +3,7 @@
  */
 import Component from '../component';
 import * as Dom from '../utils/dom.js';
+import MediaError from '../media-error.js';
 
 /**
  * 分辨率选择控件
@@ -31,22 +32,43 @@ class PlayResolutions extends Component {
           className:'vjs-gaia-resolution',
           innerHTML:html
         });
-        domEl.appendChild(this.contentEl2_);
+        if(videos.length === 1){
+          this.contentEl2_.style.display = 'none';
+          domEl.style.cursor = 'default';
+        }
+        else{
+          domEl.appendChild(this.contentEl2_);
+        }
         this.contentEl_.innerHTML=videos[idx].name;
         var player = this.player();
+        if (!videos[idx] || !videos[idx].src || videos[idx].src === 'TRANSCODING') {
+          console.log(videos[idx]);
+          player.addClass('vjs-error');
+          player.addClass('show-poster');
+          // this.trigger('error');
+          var message = '没有播放地址';
+          if(videos[idx]){
+            message = videos[idx].errorMessage || '视频正在转码中,暂时不能播放...';
+          }
+          player.error_ = new MediaError(message);
+          player.trigger('error');
+          return ;
+        }
         player.src({
           src: videos[idx].src,
           type: videos[idx].type || 'video/mp4'
         });
-        player.progressed();
+        if(player.progressed){
+          player.progressed();
+        }
       }
     });
     this.on('click',(e) => {
       var el = e.target.getAttribute('val');
-      var name = e.target.innerText;
-      var type = e.target.getAttribute('t');
-      if(el){
-        var player = this.player();
+      var player = this.player();
+      if(el && player){
+        var name = e.target.innerText;
+        var type = e.target.getAttribute('t');
         var playTime = player.currentTime();
         player.src({
           src: el,

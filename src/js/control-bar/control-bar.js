@@ -51,8 +51,8 @@ class ControlBar extends Component {
     });
   }
 }
-
 ControlBar.prototype.options_ = {
+
   children: [
     'playToggle',
     'CustomTimeDisplay',
@@ -68,7 +68,7 @@ ControlBar.prototype.options_ = {
     'subtitlesButton',
     'captionsButton',
     'volumeMenuButton',
-    'PlayerRatio',
+    // 'PlayerRatio',
     'audioTrackButton',
     'fullscreenToggle'
   ]

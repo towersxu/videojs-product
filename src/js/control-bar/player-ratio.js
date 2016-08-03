@@ -4,6 +4,7 @@
 import Component from '../component';
 import * as Dom from '../utils/dom.js';
 
+
 /**
  * 宽高比控制组件
  * TODO - Future make it click to snap to live
@@ -20,27 +21,30 @@ class PlayerRatio extends Component {
     this.on(this.player(), 'durationchange', this.updateShowing);
     this.on(this.player(),'ready',(object) => {
       if(arguments && arguments[1]){
-        var ratios = arguments[1].ratios || [];
-        var idx = arguments[1].idx || 0;
-        var html = '<div class="tabs">';
-        for(let i=0;i<ratios.length;i++){
-          if(idx===i){
-            html += '<div class="tab selected" width="'+ratios[i].width+'" height="'+ratios[i].height+'">'+ratios[i].name+'</div>';
-            var player = this.player();
-            player.dimension('width',ratios[i].width);
-            player.dimension('height',ratios[i].height);
-          }else{
-            html += '<div class="tab" width="'+ratios[i].width+'" height="'+ratios[i].height+'">'+ratios[i].name+'</div>';
-          }
+        var ratios = arguments[1].ratios;
+        console.log(ratios);
+        if(ratios && ratios.length>0) {
+          var idx = arguments[1].idx || 0;
+          var html = '<div class="tabs">';
+          for(let i=0;i<ratios.length;i++){
+            if(idx===i){
+              html += '<div class="tab selected" width="'+ratios[i].width+'" height="'+ratios[i].height+'">'+ratios[i].name+'</div>';
+              var player = this.player();
+              player.dimension('width',ratios[i].width);
+              player.dimension('height',ratios[i].height);
+            }else{
+              html += '<div class="tab" width="'+ratios[i].width+'" height="'+ratios[i].height+'">'+ratios[i].name+'</div>';
+            }
 
+          }
+          html += '</div>';
+          var domEl = this.el();
+          this.contentEl2_ = Dom.createEl('div',{
+            className:'vjs-gaia-resolution ratio',
+            innerHTML:html
+          });
+          domEl.appendChild(this.contentEl2_);
         }
-        html += '</div>';
-        var domEl = this.el();
-        this.contentEl2_ = Dom.createEl('div',{
-          className:'vjs-gaia-resolution ratio',
-          innerHTML:html
-        });
-        domEl.appendChild(this.contentEl2_);
       }
     });
     this.on('click',(e) => {
