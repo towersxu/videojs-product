@@ -2237,7 +2237,12 @@ class Player extends Component {
       this.errorDisplay.close();
       return this;
     }
-
+    //判断当前是否使用的flash播放,如果不是,那么尝试使用flash
+    if(this.techName_.toLowerCase() !== 'flash'){
+      this.loadTech_('Flash', null);
+      this.techCall_('reset');
+      return this;
+    }
     // error instance
     if (err instanceof MediaError) {
       this.error_ = err;
@@ -2250,6 +2255,8 @@ class Player extends Component {
 
     // log the name of the error type and any message
     // ie8 just logs "[object object]" if you just log the error object
+
+
     log.error(`(CODE:${this.error_.code} ${MediaError.errorTypes[this.error_.code]})`, this.error_.message, this.error_);
 
     // fire an error event on the player

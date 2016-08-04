@@ -4,8 +4,8 @@
   <meta charset="utf-8" />
   <title>自定义皮肤</title>
   <script src="modernizr-2.8.3.min.js"></script>
-  <link href="../build/temp/video-js.css" rel="stylesheet" type="text/css">
-  <script src="../build/temp/video.js"></script>
+  <link href="./js/video-js.min.css" rel="stylesheet" type="text/css">
+  <script src="./js/video.min.js"></script>
   <script src="videojs.hls.min.js"></script>
 
 </head>
@@ -34,14 +34,14 @@
     // initialize it
     vid1 = videojs('vid1',{
       poster:'http://7xrmyu.com1.z0.glb.clouddn.com/1419408695022_000.jpg',
-      techOrder: ["html5","flash"],
+      techOrder: ["html5"],
       controlBar: {
         volumeMenuButton: {
           inline: false,
           vertical: true
         },
         PlayResolutions:{
-          idx:0,   //0-n
+          idx:1,   //0-n
           videos:[
             {
               name:'mpg4-visual',
@@ -97,6 +97,7 @@
       console.log('first play..')
       console.log(vid1.duration())
       a.length = 10000;
+//      vid1.aspectRatio("4:3");
     });
 
     vid1.on('timeupdate',function(){
@@ -104,6 +105,10 @@
       var t = vid1.currentTime();
       setEle(Math.ceil(Math.random()*10000));
     });
+    vid1.on('error',function () {
+      console.log('error....');
+//      vid1.nextTech();
+    })
     var delay = false;
     function setEle(num){
       if(!delay){

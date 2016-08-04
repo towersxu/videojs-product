@@ -1,6 +1,5 @@
 .DS_Store
 build/files/*
-build/temp/*
 docs/api/*
 dev.html
 projects

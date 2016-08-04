@@ -1,5 +1,14 @@
 
 ##修改内容
+- 打开sandbox中的`demo.html`可以直接使用
+或者[在线访问](http://towersxu.esy.es/sandbox/demo.html)
+
+- 所有的样式都是在`src/css/custom中进行补充修改的`;
+由于最开始是在一个[gaiamount](http://www.gaiamount.com/)中开始修改的,所以在样式中都有一个class叫做`gaia`
+
+
+
+
 <p align="center"><img width="800"src="http://4.tophp.sinaapp.com/demo.png"></p>
 ### 移除`bigPlayButton`
 使用自定义的控制条作为播放控制器。
