@@ -6,10 +6,28 @@
 - 所有的样式都是在`src/css/custom中进行补充修改的`;
 由于最开始是在一个[gaiamount](http://www.gaiamount.com/)中开始修改的,所以在样式中都有一个class叫做`gaia`
 
+###增加了在播放视频格式错误的时候调用flash播放器,改功能主要是在chrome上播放MPG4-VISUAL格式的视频时出现
+- player.js 2240
+```javascript
+    //判断当前是否使用的flash播放,如果不是,那么尝试使用flash
+    if(this.techName_.toLowerCase() !== 'flash'){
+      this.loadTech_('Flash', null);
+      this.techCall_('reset');
+      return this;
+    }
 
+```
 
+###增加了在没有url地址的时候提示`视频正在转码中...`
+- control-bar/play-resolutions.js
+```javascript
+  var message = '没有播放地址';
+  if(videos[idx]){
+    message = videos[idx].errorMessage || '视频正在转码中,暂时不能播放...';
+  }
+```
 
-<p align="center"><img width="800"src="http://4.tophp.sinaapp.com/demo.png"></p>
+<p align="center"><img width="800" src="http://4.tophp.sinaapp.com/demo.png"></p>
 ### 移除`bigPlayButton`
 使用自定义的控制条作为播放控制器。
 - player.js
