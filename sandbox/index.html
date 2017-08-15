@@ -2,43 +2,154 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>Video.js Sandbox</title>
-
-  <!-- Add ES5 shim and sham for IE8 -->
-  <script src="../build/temp/ie8/videojs-ie8.js"></script>
-  <!-- Load the source files -->
+  <title>自定义皮肤</title>
   <script src="modernizr-2.8.3.min.js"></script>
-  <link href="../build/temp/video-js.css" rel="stylesheet" type="text/css">
-  <script src="../build/temp/video.js"></script>
-
-  <!-- Set the location of the flash SWF -->
-  <script>
-    videojs.options.flash.swf = '../build/temp/video-js.swf';
-  </script>
-
+  <link href="../build/temp/video-js.min.css" rel="stylesheet" type="text/css">
+  <link href="./recommend.css" rel="stylesheet" type="text/css">
+  <script src="../build/temp/video.min.js"></script>
+  <script src="videojs.hls.min.js"></script>
+  <script src="./video.recommends.js"></script>
 </head>
 <body>
-  <div style="background-color:#eee; border: 1px solid #777; padding: 10px; margin-bottom: 20px; font-size: .8em; line-height: 1.5em; font-family: Verdana, sans-serif;">
-    <p>You can use /sandbox/ for writing and testing your own code. Nothing in /sandbox/ will get checked into the repo, except files that end in .example (so don't edit or add those files). To get started make a copy of index.html.example and rename it to index.html.</p>
-    <pre>cp sandbox/index.html.example sandbox/index.html</pre>
-    <pre>grunt watch</pre>
-    <pre>grunt connect</pre>
-    <pre>open http://localhost:9999/sandbox/index.html</pre>
-  </div>
+<div class="video-wrap">
+<video id="vid1" class="video-js gaia show-control vjs-default-skin " controls preload="auto" width="860" height="482">
+  <!--<source src="rtmp://cp67126.edgefcs.net/ondemand/&mp4:mediapm/ovp/content/test/video/spacealonehd_sounas_640_300.mp4" type='rtmp/mp4'>-->  
+</video>
+</div>
+<script>
+  var a = [];
+  var urls = [
+    {
+      src: 'http://qn.4ye.cc/video/607277.mp4.m3u8',
+      poster: 'http://oupggumuj.bkt.clouddn.com/img-78x52-1.png',
+      title: '小学计算题',
+      author: '王小波',
+      watchs: '4523',
+      link: 200,
+      videos: [{
+        name:'标清',
+        src:'http://qn.4ye.cc/video/607277.mp4.m3u8',
+        type:'application/vnd.apple.mpegurl'
+      }]
+    },
+    {
+      poster: 'http://oupggumuj.bkt.clouddn.com/img-78x52-2.png',
+      title: 'James Blunt - If Time All I have',
+      author: '王小波',
+      watchs: '4523',
+      link: 200,
+      videos: [{ // 多分辨率
+        name:'mp4',
+        src:'http://7xqjp2.com1.z0.glb.clouddn.com/James%20Blunt%20-%20If%20Time%20Is%20All%20I%20Have.mp4',
+        type: 'video/mp4'
+      }]
+    },
+    {
+      poster: 'http://oupggumuj.bkt.clouddn.com/img-78x52-3.png',
+      title: 'Adele - Hello',
+      author: '王小波',
+      watchs: '4523',
+      link: 200,
+      videos: [{ // 多分辨率
+        name:'mp4',
+        src:'http://7xqjp2.com1.z0.glb.clouddn.com/Adele%20-%20Hello.mp4',
+        type: 'video/mp4'
+      }]
+    },
+    {
+      poster: 'http://oupggumuj.bkt.clouddn.com/img-78x52-4.png',
+      title: '音乐欣赏 - Time Machine',
+      author: '王小波',
+      watchs: '4523',
+      link: 200,
+      videos: [{ // 多分辨率
+        name:'mp4',
+        src:'http://7xqjp2.com1.z0.glb.clouddn.com/Ingrid%20Michaelson%20-%20Time%20Machine.mp3',
+        type: 'video/mp4'
+      }]
+    },
+    {
+      poster: 'http://oupggumuj.bkt.clouddn.com/img-78x52-5.png',
+      title: 'Michael Jackson - Hollywood Tonight',
+      author: '王小波',
+      watchs: '4523',
+      link: 200,
+      videos: [{ // 多分辨率
+        name:'mp4',
+        src:'http://7xqjp2.com1.z0.glb.clouddn.com/Michael%20Jackson%20-%20Hollywood%20Tonight.mp4',
+        type: 'video/mp4'
+      }]
+    }
+  ];  
+  
+  
+  (function() {
+    var vid1, progressed,volumeMenuButton;
 
-  <video id="vid1" class="video-js vjs-default-skin" controls preload="auto" width="640" height="264"
-      poster="http://vjs.zencdn.net/v/oceans.png"
-      data-setup='{}'>
-    <source src="http://vjs.zencdn.net/v/oceans.mp4" type="video/mp4">
-    <source src="http://vjs.zencdn.net/v/oceans.webm" type="video/webm">
-    <source src="http://vjs.zencdn.net/v/oceans.ogv" type="video/ogg">
-    <track kind="captions" src="../docs/examples/shared/example-captions.vtt" srclang="en" label="English"></track><!-- Tracks need an ending tag thanks to IE9 -->
-    <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
-  </video>
+    // register the plugin
+    videojs.plugin('progressed', progressed);
 
-  <script>
-    vid = document.getElementById("vid1");
-  </script>
+    // initialize it
+    vid1 = videojs('vid1',{
+      poster:'http://oupggumuj.bkt.clouddn.com/img-800x460.png',
+      techOrder: ["html5", "flash"],
+      controlBar: {
+        volumeMenuButton: {
+          inline: false,
+          vertical: true
+        },
+        PlayResolutions:{
+          idx:2,   //0-n
+          videos:[
+            {
+              name:'标清', // mpg4-visual
+              src:'http://7xqjp2.com1.z0.glb.clouddn.com/5089.mp4',
+              type: 'video/mp4'
+            },
+            {
+              name:'普通', // encode
+              src:'http://7xqjp2.com1.z0.glb.clouddn.com/5089new.mp4',
+              type: 'video/mp4'
+            },
+            {
+              name:'高清', // mp4
+              src:'http://7xqjp2.com1.z0.glb.clouddn.com/James%20Blunt%20-%20If%20Time%20Is%20All%20I%20Have.mp4',
+              type: 'video/mp4'
+            },
+            // {
+            //   name:'付费', // 转码中
+            //   src:'',
+            //   type: 'video/mp4',
+            //   errorMessage:'视频正在转码中,暂时不能播放...'
+            // },
+            {
+              name:'音频', // mp3
+              src:'http://7xqjp2.com1.z0.glb.clouddn.com/Ingrid%20Michaelson%20-%20Time%20Machine.mp3',
+              type: 'audio/mp3'
+            },
+            {
+              name:'蓝光', // big mp3
+              src:'http://7xqjp2.com1.z0.glb.clouddn.com/Adele%20-%20Hello.mp4',
+              type: 'video/mp4'
+            },
+            {
+              name:'直播', // m3u8
+              src:'http://qn.4ye.cc/video/607277.mp4.m3u8',
+              type:'application/vnd.apple.mpegurl'
+            }
+          ]
+        }
+      }
+    });
+    // vid1.on('timeupdate',function(){
+    //   var t = vid1.currentTime();
+    //   setEle(Math.ceil(Math.random()*10000));
+    // });
+    var vRecommend = videoRecommend(vid1);
+    vRecommend.setRecommendData(urls)
+  })();
+  
+</script>
 
 </body>
 </html>

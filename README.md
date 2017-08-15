@@ -1,12 +1,12 @@
 
-##修改内容
+## 修改内容
 - 打开sandbox中的`demo.html`可以直接使用
 或者[在线访问](http://towersxu.esy.es/sandbox/demo.html)
 
 - 所有的样式都是在`src/css/custom中进行补充修改的`;
 由于最开始是在一个[gaiamount](http://www.gaiamount.com/)中开始修改的,所以在样式中都有一个class叫做`gaia`
 
-###增加了在播放视频格式错误的时候调用flash播放器,改功能主要是在chrome上播放MPG4-VISUAL格式的视频时出现
+### 增加了在播放视频格式错误的时候调用flash播放器,该功能主要是在chrome上播放MPG4-VISUAL格式的视频时无法使用video播放
 - player.js 2240
 ```javascript
     //判断当前是否使用的flash播放,如果不是,那么尝试使用flash
@@ -18,7 +18,7 @@
 
 ```
 
-###增加了在没有url地址的时候提示`视频正在转码中...`
+### 增加了在没有url地址的时候提示`视频正在转码中...`
 - control-bar/play-resolutions.js
 ```javascript
   var message = '没有播放地址';
@@ -28,6 +28,7 @@
 ```
 
 <p align="center"><img width="800" src="http://4.tophp.sinaapp.com/demo.png"></p>
+
 ### 移除`bigPlayButton`
 使用自定义的控制条作为播放控制器。
 - player.js
@@ -69,7 +70,7 @@
 ```
 增加class show-control,将vjs-control-bar display属性设置为flex.
 
-###time-control
+### time-control
 将时间修改为00：00
 ```javascript
     //remaining-time-display
@@ -79,7 +80,7 @@
   this.contentEl_.innerHTML = `<span class="vjs-control-text">${localizedText}</span>${formattedTime} | ${formattedTime1}`;
 ```
 
-###分辨率选择
+### 分辨率选择
 增加分辨率选择组件，play-resolutions.js
 
 调用方式：
@@ -119,7 +120,7 @@
   });
 ```
 
-###长宽比选择
+### 长宽比选择
 增加长宽比选择组件，play-ratio.js
 ```javascript
   PlayerRatio:{
@@ -163,7 +164,7 @@ click点击调用函数。
 默认使用favicon图标
 
 
-###关于hls aes加密下的一个坑
+### 关于hls aes加密下的一个坑
 ```javascript
   if (error || !request.response || request.response.byteLength !== 16) {
           key.retries = key.retries || 0;

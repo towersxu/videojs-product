@@ -22,7 +22,6 @@ class PlayerRatio extends Component {
     this.on(this.player(),'ready',(object) => {
       if(arguments && arguments[1]){
         var ratios = arguments[1].ratios;
-        console.log(ratios);
         if(ratios && ratios.length>0) {
           var idx = arguments[1].idx || 0;
           var html = '<div class="tabs">';
