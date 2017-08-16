@@ -9,14 +9,45 @@
   <script src="../build/temp/video.js"></script>
   <script src="videojs.hls.min.js"></script>
   <script src="./video.recommends.js"></script>
+  <style>
+    .popover-video-mask {
+      position: fixed;
+      background: #444;
+      background: rgba(38,38,38,0.9);
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      display: none;
+    }
+    .popover-video-mask.show {
+      display: block;
+    }
+    .popover-video-wrap {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin-left: -430px;
+      margin-top: -241px;
+    }
+  </style>
 </head>
 <body>
 <div class="video-wrap">
-<video id="vid1" class="video-js theme-sy show-control vjs-default-skin " controls preload="auto" width="860" height="482">
-  <!--<source src="rtmp://cp67126.edgefcs.net/ondemand/&mp4:mediapm/ovp/content/test/video/spacealonehd_sounas_640_300.mp4" type='rtmp/mp4'>-->  
-</video>
+  <button id="showVideo">显示视频</button>
+  <div id="js-popover-video" class="popover-video-mask">
+    <div class="popover-video-wrap">
+      <video id="vid1" class="video-js theme-sy show-control vjs-default-skin " controls preload="auto" width="860" height="482">
+        <!--<source src="rtmp://cp67126.edgefcs.net/ondemand/&mp4:mediapm/ovp/content/test/video/spacealonehd_sounas_640_300.mp4" type='rtmp/mp4'>-->  
+      </video>
+    </div>
+  </div>
 </div>
 <script>
+  document.getElementById('showVideo').addEventListener('click', function () {
+    document.getElementById('js-popover-video').className = document.getElementById('js-popover-video').className + ' show';
+  })
   var a = [];
   var urls = [
     {
@@ -24,22 +55,56 @@
       poster: 'http://oupggumuj.bkt.clouddn.com/img-78x52-1.png',
       title: '小学计算题',
       author: '王小波',
-      watchs: '4523',
-      link: 200,
-      videos: [{
-        name:'标清',
-        src:'http://qn.4ye.cc/video/607277.mp4.m3u8',
-        type:'application/vnd.apple.mpegurl'
-      }]
+      views: 45231,
+      likes: 2010,
+      videos: [
+        {
+          name:'高清', // mp4
+          src:'http://7xqjp2.com1.z0.glb.clouddn.com/James%20Blunt%20-%20If%20Time%20Is%20All%20I%20Have.mp4',
+          type: 'video/mp4'
+        },
+        {
+          name:'标清', // mpg4-visual
+          src:'http://7xqjp2.com1.z0.glb.clouddn.com/5089.mp4',
+          type: 'video/mp4'
+        },
+        {
+          name:'普通', // encode
+          src:'http://7xqjp2.com1.z0.glb.clouddn.com/5089new.mp4',
+          type: 'video/mp4'
+        },
+        // {
+        //   name:'付费', // 转码中
+        //   src:'',
+        //   type: 'video/mp4',
+        //   errorMessage:'视频正在转码中,暂时不能播放...'
+        // },
+        {
+          name:'音频', // mp3
+          src:'http://7xqjp2.com1.z0.glb.clouddn.com/Ingrid%20Michaelson%20-%20Time%20Machine.mp3',
+          type: 'audio/mp3'
+        },
+        {
+          name:'蓝光', // big mp3
+          src:'http://7xqjp2.com1.z0.glb.clouddn.com/Adele%20-%20Hello.mp4',
+          type: 'video/mp4'
+        },
+        {
+          name:'直播', // m3u8
+          src:'http://qn.4ye.cc/video/607277.mp4.m3u8',
+          type:'application/vnd.apple.mpegurl'
+        }
+      ]
     },
     {
       poster: 'http://oupggumuj.bkt.clouddn.com/img-78x52-2.png',
       title: 'James Blunt - If Time All I have',
       author: '王小波',
-      watchs: '4523',
-      link: 200,
+      views: 4523,
+      likes: 200,
+      liked: true,
       videos: [{ // 多分辨率
-        name:'mp4',
+        name:'标清',
         src:'http://7xqjp2.com1.z0.glb.clouddn.com/James%20Blunt%20-%20If%20Time%20Is%20All%20I%20Have.mp4',
         type: 'video/mp4'
       }]
@@ -48,10 +113,10 @@
       poster: 'http://oupggumuj.bkt.clouddn.com/img-78x52-3.png',
       title: 'Adele - Hello',
       author: '王小波',
-      watchs: '4523',
-      link: 200,
+      views: 4523,
+      likes: 2001,
       videos: [{ // 多分辨率
-        name:'mp4',
+        name:'标清',
         src:'http://7xqjp2.com1.z0.glb.clouddn.com/Adele%20-%20Hello.mp4',
         type: 'video/mp4'
       }]
@@ -60,10 +125,10 @@
       poster: 'http://oupggumuj.bkt.clouddn.com/img-78x52-4.png',
       title: '音乐欣赏 - Time Machine',
       author: '王小波',
-      watchs: '4523',
-      link: 200,
+      views: 14523,
+      likes: 2100,
       videos: [{ // 多分辨率
-        name:'mp4',
+        name:'标清',
         src:'http://7xqjp2.com1.z0.glb.clouddn.com/Ingrid%20Michaelson%20-%20Time%20Machine.mp3',
         type: 'video/mp4'
       }]
@@ -72,10 +137,10 @@
       poster: 'http://oupggumuj.bkt.clouddn.com/img-78x52-5.png',
       title: 'Michael Jackson - Hollywood Tonight',
       author: '王小波',
-      watchs: '4523',
-      link: 200,
+      views: 45223,
+      likes: 200,
       videos: [{ // 多分辨率
-        name:'mp4',
+        name:'标清',
         src:'http://7xqjp2.com1.z0.glb.clouddn.com/Michael%20Jackson%20-%20Hollywood%20Tonight.mp4',
         type: 'video/mp4'
       }]
@@ -87,9 +152,10 @@
     var vid1, progressed,volumeMenuButton;
 
     // register the plugin
-    videojs.plugin('progressed', progressed);
+    // videojs.plugin('progressed', progressed);
 
-    // initialize it
+    var currentPlayResource = urls[0]; // 当前播放的视频。
+    
     vid1 = videojs('vid1',{
       poster:'http://oupggumuj.bkt.clouddn.com/img-800x460.png',
       techOrder: ["html5", "flash"],
@@ -99,57 +165,53 @@
           vertical: true
         },
         PlayResolutions:{
-          idx:2,   //0-n
-          videos:[
-            {
-              name:'标清', // mpg4-visual
-              src:'http://7xqjp2.com1.z0.glb.clouddn.com/5089.mp4',
-              type: 'video/mp4'
-            },
-            {
-              name:'普通', // encode
-              src:'http://7xqjp2.com1.z0.glb.clouddn.com/5089new.mp4',
-              type: 'video/mp4'
-            },
-            {
-              name:'高清', // mp4
-              src:'http://7xqjp2.com1.z0.glb.clouddn.com/James%20Blunt%20-%20If%20Time%20Is%20All%20I%20Have.mp4',
-              type: 'video/mp4'
-            },
-            // {
-            //   name:'付费', // 转码中
-            //   src:'',
-            //   type: 'video/mp4',
-            //   errorMessage:'视频正在转码中,暂时不能播放...'
-            // },
-            {
-              name:'音频', // mp3
-              src:'http://7xqjp2.com1.z0.glb.clouddn.com/Ingrid%20Michaelson%20-%20Time%20Machine.mp3',
-              type: 'audio/mp3'
-            },
-            {
-              name:'蓝光', // big mp3
-              src:'http://7xqjp2.com1.z0.glb.clouddn.com/Adele%20-%20Hello.mp4',
-              type: 'video/mp4'
-            },
-            {
-              name:'直播', // m3u8
-              src:'http://qn.4ye.cc/video/607277.mp4.m3u8',
-              type:'application/vnd.apple.mpegurl'
-            }
-          ]
+          idx: 0,   //0-n
+          videos: currentPlayResource.videos
         }
       }
+    });    
+    var vControl = videoSetControl(vid1);
+    vControl.setControlData({
+      author: currentPlayResource.author,
+      likes: currentPlayResource.likes,
+      views: currentPlayResource.views,
+      title: currentPlayResource.title
+    })
+    vControl.onClickEl(function(type){ // 用户点击标签内容
+      if (type === 'like') { // 如果是点击的赞
+        if (currentPlayResource.liked) { // 已赞
+          currentPlayResource.liked = false
+          currentPlayResource.likes -= 1
+          console.log('取消赞'); 
+        }
+        else {
+          currentPlayResource.liked = true
+          currentPlayResource.likes += 1
+          console.log('提交赞');
+        }        
+      }
     });
-    // vid1.on('timeupdate',function(){
-    //   var t = vid1.currentTime();
-    //   setEle(Math.ceil(Math.random()*10000));
-    // });
+    vControl.onClickClose(function() {      
+      vid1.trigger('pause')
+      vid1.reset();
+      document.getElementById('js-popover-video').className = document.getElementById('js-popover-video').className.replace('show','').trim();
+      var de = document;
+      if (de.exitFullscreen) {
+        de.exitFullscreen();
+      } else if (de.mozCancelFullScreen) {
+        de.mozCancelFullScreen();
+      } else if (de.webkitCancelFullScreen) {
+        de.webkitCancelFullScreen();
+      }
+    });
     var vRecommend = videoRecommend(vid1);
-    vRecommend.setRecommendData(urls)
+    vRecommend.setRecommendData(urls);
+    vRecommend.onResourceChange(function (resource) {
+      currentPlayResource = resource;
+      vControl.setControlData(resource);
+    })    
   })();
   
 </script>
-
 </body>
 </html>

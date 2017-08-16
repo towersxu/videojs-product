@@ -1,8 +1,11 @@
 (function () {
   var videoEl, //videojs播放器DOM
       video, // videojs播放器对象
-      adsHtmlEl = '';  // 推荐
-  
+      adsHtmlEl = '',  // 推荐
+      clickControlEl = function () {},
+      clickCloseEl = function () {},
+      resourceChangeCallback = function (){}; // 点击推荐的回调。
+      
   function constructRecommendHtml (urls) {
     var wrapEl = document.createElement('div');
     wrapEl.className = 'vid-complete-poster';
@@ -38,6 +41,7 @@
           video.src(urls[i].videos);
           video.currentTime(0);
           video.play();
+          resourceChangeCallback(urls[i]);          
         })
       })(i)    
       var img = document.createElement('img');
@@ -53,7 +57,23 @@
     wrapEl.appendChild(reList);
     adsHtmlEl = wrapEl
   }
-  // 播放
+  
+  function addVideoTitle (data) {
+    console.log(data)
+    var head = document.createElement('div');
+    head.className = 'vid-header-wrap';
+    var title = document.createElement('span');
+    title.className = 'vid-header-txt'
+    title.innerText = data.title;
+    head.appendChild(title);
+    var close = document.createElement('close');
+    close.className = 'vid-header-close';
+    close.addEventListener('click', function () {
+      clickCloseEl()
+    })
+    head.appendChild(close);
+    videoEl.appendChild(head);
+  }
   
   /**
    * 视频播放完成后显示推荐广告
@@ -70,7 +90,11 @@
       el.parentNode.removeChild(el);      
     }
   }
-  
+  /**
+   * 视频播放完成后显示推荐页面
+   * @param  {video} v videojs对象
+   * @return {object}   videoRecommend对象
+   */
   window.videoRecommend = function (v) {
     video = v;
     videoEl = v.el_;
@@ -81,7 +105,91 @@
       addRecommend()
     })
     return {
-      setRecommendData: constructRecommendHtml
+      setRecommendData: constructRecommendHtml,      
+      onResourceChange: function (cb) {
+        resourceChangeCallback = cb
+      }
     }
+  }
+  
+  /**
+   * 在播放控制栏设置业务DOM
+   * @return {[type]} [description]
+   */
+  window.videoSetControl = function (v) {
+    video = v;
+    videoEl = v.el_;
+    return {
+      setControlData: setControlData,
+      onClickEl: function (cb) {
+        clickControlEl = cb;
+      },
+      onClickClose: function (cb) {
+        clickCloseEl = cb;
+      }
+    }
+  }
+  
+  function setControlData (data) {
+    data = data || {};
+    var vcm = videoEl.querySelector('.video-control-more');
+    if (vcm) {
+      vcm.parentNode.removeChild(vcm); 
+    }
+    var fragment = document.createElement('div');
+    fragment.className = 'video-control-more';
+    if (data.author) {
+      var authorEl = document.createElement('span');
+      authorEl.className = 'video-control-author';
+      authorEl.innerText = '作者：' + data.author;
+      fragment.appendChild(authorEl);
+    }
+    if (data.views) {
+      var viewsEl = document.createElement('span');
+      viewsEl.className = 'video-control-views';
+      viewsEl.innerText = data.views + '次';
+      fragment.appendChild(viewsEl);
+    }
+    if (data.likes) {
+      var viewsEl = document.createElement('span');
+      viewsEl.className = 'video-control-likes';
+      var likeBtn = document.createElement('span');
+      likeBtn.className = 'video-likes-btn';
+      if (data.liked) {
+        likeBtn.className = 'video-likes-btn liked';
+      }
+      likeBtn.addEventListener('click', function (e) {
+        if (data.liked) {
+          e.target.className = e.target.className.replace('liked', '').trim();
+          data.liked = false;
+          data.likes -= 1;
+        }
+        else {
+          e.target.className = e.target.className + ' liked';
+          data.liked = true;
+          data.likes += 1;
+        }
+        // 点击后改变人数和选中状态。
+        var likeTxt1 = document.createElement('span');
+        likeTxt1.innerText = data.likes + '人';
+        likeTxt1.className = 'videos-likes-txt';
+        var vlt = videoEl.querySelector('.videos-likes-txt');
+        var lbt = videoEl.querySelector('.video-control-likes');
+        if (vlt) {
+          vlt.parentNode.removeChild(vlt);
+          lbt.appendChild(likeTxt1);
+        }
+        clickControlEl('like');
+      });
+      viewsEl.appendChild(likeBtn);
+      var likeTxt = document.createElement('span');
+      likeTxt.innerText = data.likes + '人';
+      likeTxt.className = 'videos-likes-txt';      
+      viewsEl.appendChild(likeTxt);
+      fragment.appendChild(viewsEl);
+    }
+    var controlBar = videoEl.querySelector('.vjs-control-bar');
+    controlBar.appendChild(fragment);
+    addVideoTitle(data);
   }
 }())

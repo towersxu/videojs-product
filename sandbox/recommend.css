@@ -47,12 +47,7 @@
 .vid-complete-source img {
   vertical-align: middle;
   margin-right: 10px;
-}
-.vjs-fullscreen .vid-complete-source img {
-  width: 25%;
-  /*max-height: 20*/
-  /*height: 133px;*/
-  margin-top: 20px;
+  max-width: 25%;
 }
 .vid-complete-source-txt {
   font-size: 20px;
@@ -63,4 +58,91 @@
   text-overflow: ellipsis;
   line-height: 78px;
   vertical-align: middle;
+}
+.vjs-fullscreen .vid-complete-source img {
+  width: 20%;
+  margin-top: 20px;
+}  
+@media screen and (min-width: 1600px) {
+  .vjs-fullscreen .vid-complete-source img {
+    width: 25%;
+  }  
+}
+
+.video-control-author {
+  position: absolute;
+  left: 200px;
+  bottom: 20px;
+  color: #666;
+  font-size: 18px;
+}
+
+.video-control-views {
+  position: absolute;
+  right: 280px;
+  bottom: 0;
+  color: #666;
+  line-height: 60px;
+}
+.video-control-views:before {
+  content: "\e632";
+  display: inline-block;
+  font-family: "cvfont";
+  color: #666;
+  font-size: 14px;
+  margin-right: 9px;
+}
+
+.video-control-likes {
+  position: absolute;
+  line-height: 60px;
+  font-size: 14px;
+  color: #666;
+  right: 170px;
+  bottom: 0;
+}
+.video-control-likes .video-likes-btn:before {
+  content: "\e647";
+  display: inline-block;
+  font-family: "cvfont";
+  color: #666;
+  font-size: 18px;
+  margin-right: 9px;
+  cursor: pointer;
+}
+.video-control-likes .video-likes-btn.liked:before {
+  color: #1F90E6;
+}
+.vid-header-wrap {
+  position: absolute;
+  width: 100%;
+  height: 60px;
+  background: #fff;
+  background: rgba(255,255,255,0.9);
+}
+.vid-header-txt {
+  line-height: 60px;
+  font-size: 18px;
+  color: #666;
+  margin-left: 20px;
+}
+.vid-header-close:before{
+  content: "\e63c";
+  font-family: "cvfont";
+  display: inline-block;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  font-size: 20px;
+  cursor: pointer;
+  color: #666;
+}
+
+.vjs-has-started.vjs-user-inactive.vjs-playing .vid-header-wrap {
+  visibility: visible;
+  opacity: 0;
+  -webkit-transition: visibility 1s, opacity 1s;
+  -moz-transition: visibility 1s, opacity 1s;
+  -o-transition: visibility 1s, opacity 1s;
+  transition: visibility 1s, opacity 1s;
 }

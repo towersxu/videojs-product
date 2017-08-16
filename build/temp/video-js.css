@@ -1493,37 +1493,34 @@ video::-webkit-media-text-track-display {
 .icon-zanting:before {
   content: "\e613"; }
 
-.video-js.theme-sy .vjs-control-bar {
-  display: block;
-  width: 100%;
-  height: 60px;
-  background: #fff;
-  background: rgba(255, 255, 255, 0.9);
-  z-index: 10; }
-
-.video-js.theme-sy .vjs-play-control {
-  margin-left: 10px;
-  display: inline-block;
-  vertical-align: middle;
-  cursor: pointer; }
-
-.theme-sy .vjs-icon-play:before, .theme-sy .video-js .vjs-big-play-button:before, .video-js .theme-sy .vjs-big-play-button:before, .theme-sy .video-js .vjs-play-control:before, .video-js .theme-sy .vjs-play-control:before, .video-js.theme-sy .vjs-big-play-button:before, .video-js.theme-sy .vjs-play-control:before {
-  color: #000;
-  line-height: 60px;
-  font-family: "cvfont";
-  content: "\e61a";
-  font-size: 40px;
-  color: #67686a; }
-
-.theme-sy.video-js .vjs-icon-pause:before, .theme-sy.video-js .vjs-play-control.vjs-playing:before, .theme-sy.video-js .vjs-play-control.vjs-playing:before {
-  content: "\e62c"; }
-
-.theme-sy .vjs-time-divider {
-  padding: 0;
-  min-width: auto; }
-
 .video-js.theme-sy {
   /*分辨率*/ }
+  .video-js.theme-sy .vjs-control-bar {
+    display: block;
+    width: 100%;
+    height: 60px;
+    background: #fff;
+    background: rgba(255, 255, 255, 0.9);
+    z-index: 10; }
+  .video-js.theme-sy .vjs-play-control {
+    margin-left: 10px;
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer; }
+  .video-js.theme-sy .vjs-icon-play:before, .video-js.theme-sy .vjs-big-play-button:before, .video-js.theme-sy .vjs-play-control:before, .video-js.theme-sy .vjs-big-play-button:before, .video-js.theme-sy .vjs-play-control:before {
+    color: #000;
+    line-height: 60px;
+    font-family: "cvfont";
+    content: "\e61a";
+    font-size: 40px;
+    color: #67686a; }
+  .video-js.theme-sy .vjs-play-control.vjs-playing:before {
+    content: "\e61a"; }
+  .video-js.theme-sy .vjs-icon-pause:before, .video-js.theme-sy .vjs-play-control.vjs-playing:before {
+    content: "\e62c"; }
+  .video-js.theme-sy .vjs-time-divider {
+    padding: 0;
+    min-width: auto; }
   .video-js.theme-sy .vjs-current-time, .video-js.theme-sy .vjs-time-divider, .video-js.theme-sy .vjs-duration {
     display: inline-block;
     vertical-align: middle;
@@ -1546,7 +1543,8 @@ video::-webkit-media-text-track-display {
     color: #000;
     bottom: 0;
     width: 74px;
-    cursor: pointer; }
+    cursor: pointer;
+    text-align: center; }
     .video-js.theme-sy .vjs-live-control .vjs-live-display {
       line-height: 60px;
       display: inline;
@@ -1600,7 +1598,8 @@ video::-webkit-media-text-track-display {
       display: block; }
   .video-js.theme-sy .vjs-fullscreen-control {
     position: absolute;
-    right: 10px; }
+    right: 10px;
+    bottom: 0; }
     .video-js.theme-sy .vjs-fullscreen-control:before {
       line-height: 60px;
       color: #333; }
