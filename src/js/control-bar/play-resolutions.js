@@ -42,7 +42,6 @@ class PlayResolutions extends Component {
         this.contentEl_.innerHTML=videos[idx].name;
         var player = this.player();
         if (!videos[idx] || !videos[idx].src || videos[idx].src === 'TRANSCODING') {
-          console.log(videos[idx]);
           player.addClass('vjs-error');
           player.addClass('show-poster');
           // this.trigger('error');

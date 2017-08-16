@@ -10,7 +10,7 @@ import CurrentTimeDisplay from './time-controls/current-time-display.js';
 import DurationDisplay from './time-controls/duration-display.js';
 import TimeDivider from './time-controls/time-divider.js';
 import RemainingTimeDisplay from './time-controls/remaining-time-display.js';
-import CustomTimeDisplay from './time-controls/custom-time-display.js';
+// import CustomTimeDisplay from './time-controls/custom-time-display.js';
 import LiveDisplay from './live-display.js';
 import PlayResolutions from './play-resolutions.js';
 import PlayerRatio from './player-ratio.js';
@@ -55,7 +55,7 @@ ControlBar.prototype.options_ = {
 
   children: [
     'playToggle',
-    'CustomTimeDisplay',
+    // 'CustomTimeDisplay',
     'currentTimeDisplay',
     'timeDivider',
     'durationDisplay',
