@@ -1329,7 +1329,7 @@ video::-webkit-media-text-track-display {
   color: gray; }
 
 .video-js.gaia .vjs-progress-control {
-  width: 330px; }
+  width: 100%; }
 
 .video-js.gaia .vjs-progress-control .vjs-slider {
   margin: 20px 5px;
@@ -1514,8 +1514,6 @@ video::-webkit-media-text-track-display {
     content: "\e61a";
     font-size: 40px;
     color: #67686a; }
-  .video-js.theme-sy .vjs-play-control.vjs-playing:before {
-    content: "\e61a"; }
   .video-js.theme-sy .vjs-icon-pause:before, .video-js.theme-sy .vjs-play-control.vjs-playing:before {
     content: "\e62c"; }
   .video-js.theme-sy .vjs-time-divider {
