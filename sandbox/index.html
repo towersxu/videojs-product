@@ -2,13 +2,13 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>自定义皮肤</title>
+  <title>弹框式视频播放</title>
   <script src="./modernizr-2.8.3.min.js"></script>
   <link href="./js/video-js.css" rel="stylesheet" type="text/css">
   <link href="./recommend.css" rel="stylesheet" type="text/css">
   <script src="./js/video.js"></script>
   <script src="./videojs.hls.min.js"></script>
-  <script src="./video.recommends.js"></script>
+  <script src="./video.plus.js"></script>
   <style>
     .popover-video-mask {
       position: fixed;
@@ -16,13 +16,20 @@
       background: rgba(38,38,38,0.9);
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
       z-index: 1;
-      display: none;
+      transition: all 0.3s;
+      opacity: 0;
+      /*display: none;*/
+      z-index: -1;
+      width: 300px;
+      height: 200px;
     }
     .popover-video-mask.show {
       display: block;
+      opacity: 1;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
     }
     .popover-video-wrap {
       position: absolute;
@@ -35,7 +42,8 @@
 </head>
 <body>
 <div class="video-wrap">
-  <button id="showVideo">显示视频</button>
+  <img src="http://oupggumuj.bkt.clouddn.com/img-860%2A480.png" id="showVideo" width="300"/>
+  <p style="text-align: center;width: 300px;">Adele - Hello</p>
   <div id="js-popover-video" class="popover-video-mask">
     <div class="popover-video-wrap">
       <video id="vid1" class="video-js theme-sy show-control vjs-default-skin " controls preload="auto" width="860" height="482">
@@ -45,21 +53,22 @@
   </div>
 </div>
 <script>
-  document.getElementById('showVideo').addEventListener('click', function () {
-    document.getElementById('js-popover-video').className = document.getElementById('js-popover-video').className + ' show';
-  })
   var a = [];
   var urls = [
     {
-      src: 'http://qn.4ye.cc/video/607277.mp4.m3u8',
-      poster: 'http://oupggumuj.bkt.clouddn.com/img-78x52-1.png',
-      title: '小学计算题',
+      poster: 'http://oupggumuj.bkt.clouddn.com/img-860%2A480.png',
+      title: 'Adele - Hello',
       author: '王小波',
       views: 45231,
       likes: 2010,
       videos: [
         {
-          name:'高清', // mp4
+          name:'高清', // big mp3
+          src:'http://7xqjp2.com1.z0.glb.clouddn.com/Adele%20-%20Hello.mp4',
+          type: 'video/mp4'
+        },
+        {
+          name:'蓝光', // mp4
           src:'http://7xqjp2.com1.z0.glb.clouddn.com/James%20Blunt%20-%20If%20Time%20Is%20All%20I%20Have.mp4',
           type: 'video/mp4'
         },
@@ -83,11 +92,6 @@
           name:'音频', // mp3
           src:'http://7xqjp2.com1.z0.glb.clouddn.com/Ingrid%20Michaelson%20-%20Time%20Machine.mp3',
           type: 'audio/mp3'
-        },
-        {
-          name:'蓝光', // big mp3
-          src:'http://7xqjp2.com1.z0.glb.clouddn.com/Adele%20-%20Hello.mp4',
-          type: 'video/mp4'
         },
         {
           name:'直播', // m3u8
@@ -157,7 +161,7 @@
     var currentPlayResource = urls[0]; // 当前播放的视频。
     
     vid1 = videojs('vid1',{
-      poster:'http://oupggumuj.bkt.clouddn.com/img-800x460.png',
+      poster:currentPlayResource.poster,
       techOrder: ["html5", "flash"],
       controlBar: {
         volumeMenuButton: {
@@ -191,7 +195,24 @@
         }        
       }
     });
-    vControl.onClickClose(function() {      
+    vControl.onClickClose(closeVideo);
+    var vRecommend = videoRecommend(vid1);
+    vRecommend.setRecommendData(urls);
+    vRecommend.onResourceChange(function (resource) {
+      currentPlayResource = resource;
+      vControl.setControlData(resource);
+    })
+    
+    document.getElementById('showVideo').addEventListener('click', function () {
+      document.getElementById('js-popover-video').className = document.getElementById('js-popover-video').className + ' show';
+      vid1.play();
+    })
+    document.addEventListener('keyup', function (e){
+      if (e.keyCode === 27) {
+        closeVideo()
+      }
+    })
+    function closeVideo() {      
       vid1.trigger('pause')
       vid1.reset();
       document.getElementById('js-popover-video').className = document.getElementById('js-popover-video').className.replace('show','').trim();
@@ -203,13 +224,7 @@
       } else if (de.webkitCancelFullScreen) {
         de.webkitCancelFullScreen();
       }
-    });
-    var vRecommend = videoRecommend(vid1);
-    vRecommend.setRecommendData(urls);
-    vRecommend.onResourceChange(function (resource) {
-      currentPlayResource = resource;
-      vControl.setControlData(resource);
-    })    
+    }
   })();
   
 </script>

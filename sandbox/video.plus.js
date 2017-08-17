@@ -5,7 +5,9 @@
       clickControlEl = function () {},
       clickCloseEl = function () {},
       resourceChangeCallback = function (){}; // 点击推荐的回调。
-      
+  /**
+   * 视频推荐和重播
+   */
   function constructRecommendHtml (urls) {
     var wrapEl = document.createElement('div');
     wrapEl.className = 'vid-complete-poster';
@@ -57,9 +59,11 @@
     wrapEl.appendChild(reList);
     adsHtmlEl = wrapEl
   }
-  
+  /**
+   * 播放器上方的提交按钮
+   * @param {[type]} data [description]
+   */
   function addVideoTitle (data) {
-    console.log(data)
     var head = document.createElement('div');
     head.className = 'vid-header-wrap';
     var title = document.createElement('span');
@@ -69,7 +73,7 @@
     var close = document.createElement('close');
     close.className = 'vid-header-close';
     close.addEventListener('click', function () {
-      clickCloseEl()
+      clickCloseEl();
     })
     head.appendChild(close);
     videoEl.appendChild(head);
@@ -79,7 +83,7 @@
    * 视频播放完成后显示推荐广告
    */
   function addRecommend () {
-    videoEl.appendChild(adsHtmlEl)
+    videoEl.appendChild(adsHtmlEl);
   }
   /**
    * 在开始播放后去掉推荐广告
@@ -99,15 +103,15 @@
     video = v;
     videoEl = v.el_;
     video.on('playing', function () {
-      removeRecommend()
+      removeRecommend();
     })
     video.on('ended', function () {
-      addRecommend()
+      addRecommend();
     })
     return {
       setRecommendData: constructRecommendHtml,      
       onResourceChange: function (cb) {
-        resourceChangeCallback = cb
+        resourceChangeCallback = cb;
       }
     }
   }
@@ -129,7 +133,10 @@
       }
     }
   }
-  
+  /**
+   * 设置控制条上的点赞-观看等
+   * @param {[type]} data [description]
+   */
   function setControlData (data) {
     data = data || {};
     var vcm = videoEl.querySelector('.video-control-more');
