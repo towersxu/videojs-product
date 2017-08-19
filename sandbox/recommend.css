@@ -62,11 +62,11 @@
 .vjs-fullscreen .vid-complete-source img {
   width: 20%;
   margin-top: 20px;
-}  
+}
 @media screen and (min-width: 1600px) {
   .vjs-fullscreen .vid-complete-source img {
     width: 25%;
-  }  
+  }
 }
 
 .video-control-author {
@@ -119,6 +119,7 @@
   height: 60px;
   background: #fff;
   background: rgba(255,255,255,0.9);
+  z-index: 1;
 }
 .vid-header-txt {
   line-height: 60px;

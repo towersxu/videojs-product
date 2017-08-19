@@ -1,10 +1,28 @@
+# 基于videojs进行扩展
+
+### 基础版
+增加了切换分辨率功能
+<a href="http://123.207.101.120/demo/video/index.html"><img src="./sandbox/img/base-video.png" width="860"></a>
+
+### 弹框版
+- 特殊的弹窗样式
+- 控制条可自定义业务内容（点赞，观看数等）
+
+<a href="http://123.207.101.120/demo/video/index.html"><img src="./sandbox/img/modal-video.png" width="860"></a>
+
+- 播放完成后有视频推荐
+
+<a href="http://123.207.101.120/demo/video/index.html"><img src="./sandbox/img/video-recommend.png" width="860"></a>
 
 ## 修改内容
-- 打开sandbox中的`demo.html`可以直接使用
-或者[在线访问](http://towersxu.esy.es/sandbox/demo.html)
+
+- 打开sandbox中的`index.html`可以直接使用
+或者[在线访问](http://123.207.101.120:7500/demo/video/index2.html)
 
 - 所有的样式都是在`src/css/custom中进行补充修改的`;
 由于最开始是在一个[gaiamount](http://www.gaiamount.com/)中开始修改的,所以在样式中都有一个class叫做`gaia`
+
+
 
 ### 增加了在播放视频格式错误的时候调用flash播放器,该功能主要是在chrome上播放MPG4-VISUAL格式的视频时无法使用video播放
 - player.js 2240
@@ -162,6 +180,8 @@ click点击调用函数。
   }
 ```
 默认使用favicon图标
+
+### 可以通过js向video里面插入HTML元素的方式增加额外内容。这些内容即使是全屏下也会显示。
 
 
 ### 关于hls aes加密下的一个坑
