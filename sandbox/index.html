@@ -45,10 +45,8 @@
   <img src="http://oupggumuj.bkt.clouddn.com/img-860%2A480.png" id="showVideo" width="300"/>
   <p style="text-align: center;width: 300px;">Adele - Hello</p>
   <div id="js-popover-video" class="popover-video-mask">
-    <div class="popover-video-wrap">
-      <video id="vid1" class="video-js theme-sy show-control vjs-default-skin " controls preload="auto" width="860" height="482">
-        <!--<source src="rtmp://cp67126.edgefcs.net/ondemand/&mp4:mediapm/ovp/content/test/video/spacealonehd_sounas_640_300.mp4" type='rtmp/mp4'>-->  
-      </video>
+    <div class="popover-video-wrap" id="video-wrap">
+      
     </div>
   </div>
 </div>
@@ -64,7 +62,7 @@
       videos: [
         {
           name:'高清', // big mp3
-          src:'http://7xqjp2.com1.z0.glb.clouddn.com/Adele%20-%20Hello.mp4',
+          src:'http://7xqjp2.com1.z0.glb.clouddn.com/James%20Blunt%20-%20If%20Time%20Is%20All%20I%20Have.mp4',
           type: 'video/mp4'
         },
         {
@@ -148,83 +146,108 @@
         src:'http://7xqjp2.com1.z0.glb.clouddn.com/Michael%20Jackson%20-%20Hollywood%20Tonight.mp4',
         type: 'video/mp4'
       }]
+    },
+    {
+      poster: 'http://oupggumuj.bkt.clouddn.com/img-78x52-4.png',
+      title: '音乐欣赏 - Time Machine',
+      author: '王小波',
+      views: 14523,
+      likes: 2100,
+      videos: [{ // 多分辨率
+        name:'标清',
+        src:'http://7xqjp2.com1.z0.glb.clouddn.com/Ingrid%20Michaelson%20-%20Time%20Machine.mp3',
+        type: 'video/mp4'
+      }]
+    },
+    {
+      poster: 'http://oupggumuj.bkt.clouddn.com/img-78x52-5.png',
+      title: 'Michael Jackson - Hollywood Tonight',
+      author: '王小波',
+      views: 45223,
+      likes: 200,
+      videos: [{ // 多分辨率
+        name:'标清',
+        src:'http://7xqjp2.com1.z0.glb.clouddn.com/Michael%20Jackson%20-%20Hollywood%20Tonight.mp4',
+        type: 'video/mp4'
+      }]
     }
   ];  
   
   
   (function() {
-    var vid1, progressed,volumeMenuButton;
-
-    // register the plugin
-    // videojs.plugin('progressed', progressed);
-
-    var currentPlayResource = urls[0]; // 当前播放的视频。
-    
-    vid1 = videojs('vid1',{
-      poster:currentPlayResource.poster,
-      techOrder: ["html5", "flash"],
-      controlBar: {
-        volumeMenuButton: {
-          inline: false,
-          vertical: true
-        },
-        PlayResolutions:{
-          idx: 0,   //0-n
-          videos: currentPlayResource.videos
-        }
-      }
-    });    
-    var vControl = videoSetControl(vid1);
-    vControl.setControlData({
-      author: currentPlayResource.author,
-      likes: currentPlayResource.likes,
-      views: currentPlayResource.views,
-      title: currentPlayResource.title
-    })
-    vControl.onClickEl(function(type){ // 用户点击标签内容
-      if (type === 'like') { // 如果是点击的赞
-        if (currentPlayResource.liked) { // 已赞
-          currentPlayResource.liked = false
-          currentPlayResource.likes -= 1
-          console.log('取消赞'); 
-        }
-        else {
-          currentPlayResource.liked = true
-          currentPlayResource.likes += 1
-          console.log('提交赞');
-        }        
-      }
-    });
-    vControl.onClickClose(closeVideo);
-    var vRecommend = videoRecommend(vid1);
-    vRecommend.setRecommendData(urls);
-    vRecommend.onResourceChange(function (resource) {
-      currentPlayResource = resource;
-      vControl.setControlData(resource);
-    })
-    
     document.getElementById('showVideo').addEventListener('click', function () {
+      document.getElementById('video-wrap').innerHTML = '<video id="vid1" class="video-js theme-sy show-control vjs-default-skin " controls preload="auto" width="860" height="482"></video>'
       document.getElementById('js-popover-video').className = document.getElementById('js-popover-video').className + ' show';
-      vid1.play();
-    })
-    document.addEventListener('keyup', function (e){
-      if (e.keyCode === 27) {
-        closeVideo()
+      var vid1, progressed,volumeMenuButton;
+
+      // register the plugin
+      // videojs.plugin('progressed', progressed);
+
+      var currentPlayResource = urls[0]; // 当前播放的视频。
+      
+      vid1 = videojs('vid1',{
+        poster:currentPlayResource.poster,
+        techOrder: ["html5", "flash"],
+        controlBar: {
+          volumeMenuButton: {
+            inline: false,
+            vertical: true
+          },
+          PlayResolutions:{
+            idx: 0,   //0-n
+            videos: currentPlayResource.videos
+          }
+        }
+      });
+        
+      var vControl = videoSetControl(vid1);
+      vControl.setControlData({
+        author: currentPlayResource.author,
+        likes: currentPlayResource.likes,
+        views: currentPlayResource.views,
+        title: currentPlayResource.title
+      })
+      vControl.onClickEl(function(type){ // 用户点击标签内容
+        if (type === 'like') { // 如果是点击的赞
+          if (currentPlayResource.liked) { // 已赞
+            currentPlayResource.liked = false
+            currentPlayResource.likes -= 1
+            console.log('取消赞'); 
+          }
+          else {
+            currentPlayResource.liked = true
+            currentPlayResource.likes += 1
+            console.log('提交赞');
+          }        
+        }
+      });
+      vControl.onClickClose(closeVideo);
+      var vRecommend = videoRecommend(vid1);
+      vRecommend.setRecommendData(urls);
+      vRecommend.onResourceChange(function (resource) {
+        currentPlayResource = resource;
+        vControl.setControlData(resource);
+      })
+      var closeListener = function (e){
+        if (e.keyCode === 27) {
+          closeVideo()
+        }
       }
-    })
-    function closeVideo() {      
-      vid1.trigger('pause')
-      vid1.reset();
-      document.getElementById('js-popover-video').className = document.getElementById('js-popover-video').className.replace('show','').trim();
-      var de = document;
-      if (de.exitFullscreen) {
-        de.exitFullscreen();
-      } else if (de.mozCancelFullScreen) {
-        de.mozCancelFullScreen();
-      } else if (de.webkitCancelFullScreen) {
-        de.webkitCancelFullScreen();
-      }
-    }
+      document.addEventListener('keyup', closeListener)
+      function closeVideo() {      
+        vid1.dispose();
+        document.removeEventListener('keyup', closeListener)
+        document.getElementById('js-popover-video').className = document.getElementById('js-popover-video').className.replace('show','').trim();
+        var de = document;
+        if (de.exitFullscreen) {
+          de.exitFullscreen();
+        } else if (de.mozCancelFullScreen) {
+          de.mozCancelFullScreen();
+        } else if (de.webkitCancelFullScreen) {
+          de.webkitCancelFullScreen();
+        }
+      }      
+    })    
   })();
   
 </script>

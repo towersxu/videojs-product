@@ -33,29 +33,71 @@
     var reList = document.createElement('div');
     reList.className = 'vid-complete-right';
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < urls.length; i++) {
-      var url = urls[i];
-      var div = document.createElement('div');
-      div.className = 'vid-complete-source';
-      div.setAttribute('index', i);
-      (function addEvent(i) {        
-        div.addEventListener('click', function () {
-          video.src(urls[i].videos);
-          video.currentTime(0);
-          video.play();
-          resourceChangeCallback(urls[i]);          
+    var title = document.createElement('h2');
+    title.innerText = '热门排行榜';
+    fragment.appendChild(title);
+    var switchTab = document.createElement('div');
+    switchTab.className = 'vid-complete-thumbs';
+    for (var j = 0; j < (Math.floor(urls.length / 5) + 1); j++) {
+      var wrap = document.createElement('div');
+      wrap.className = 'vid-complete-source-wrap';
+      var switchBtn = document.createElement('span');
+      switchBtn.className = 'vid-complete-thumb';
+      if (j === 0) {
+        wrap.className = 'vid-complete-source-wrap show';
+        switchBtn.className = 'vid-complete-thumb selected';
+      }
+      (function(i){
+        switchBtn.addEventListener('click', function (e) {
+          var me = e.target;
+          if (/selected/.test(me.className)) {
+            return
+          }        
+          Array.prototype.map.call(me.parentNode.children, function (el) {
+            el.className = el.className.replace('selected', '').trim();
+          })
+          me.className = me.className + ' selected';
+          var sels = document.getElementsByClassName('vid-complete-source-wrap');
+          Array.prototype.map.call(sels, function (el) {
+            if (/show/.test(el.className)) {
+              el.className = el.className.replace('show', 'hide');
+              setTimeout(function(){
+                el.className = el.className.replace('hide', '');
+              }, 300)
+            }            
+          })
+          sels[i].className = sels[i].className + ' show'
         })
-      })(i)    
-      var img = document.createElement('img');
-      img.setAttribute('src', url.poster);
-      var span = document.createElement('span');
-      span.className = 'vid-complete-source-txt';
-      span.innerText = url.title;
-      div.appendChild(img);
-      div.appendChild(span);
-      fragment.appendChild(div);
+      })(j)      
+      switchTab.appendChild(switchBtn);
+      for (var i = j * 5; i < (j + 1) * 5; i++) {
+        if (i < urls.length) {
+          var url = urls[i];
+          var div = document.createElement('div');
+          div.className = 'vid-complete-source page' + Math.floor(i / 5);
+          div.setAttribute('index', i);
+          (function addEvent(i) {        
+            div.addEventListener('click', function () {
+              video.src(urls[i].videos);
+              video.currentTime(0);
+              video.play();
+              resourceChangeCallback(urls[i]);          
+            })
+          })(i)    
+          var img = document.createElement('img');
+          img.setAttribute('src', url.poster);
+          var span = document.createElement('span');
+          span.className = 'vid-complete-source-txt';
+          span.innerText = url.title;
+          div.appendChild(img);
+          div.appendChild(span);
+          wrap.appendChild(div);
+        }
+      }
+      fragment.appendChild(wrap);
     }
     reList.appendChild(fragment);
+    reList.appendChild(switchTab);
     wrapEl.appendChild(reList);
     adsHtmlEl = wrapEl
   }
