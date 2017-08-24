@@ -4,9 +4,9 @@
   <meta charset="utf-8" />
   <title>弹框式视频播放</title>
   <script src="./modernizr-2.8.3.min.js"></script>
-  <link href="./js/video-js.css" rel="stylesheet" type="text/css">
+  <link href="./js/video-js.min.css" rel="stylesheet" type="text/css">
   <link href="./recommend.css" rel="stylesheet" type="text/css">
-  <script src="./js/video.js"></script>
+  <script src="./js/video.min.js"></script>
   <script src="./videojs.hls.min.js"></script>
   <!-- <script src="./video.plus.js"></script> -->
   <style>
@@ -47,7 +47,7 @@
   <div id="js-popover-video" class="popover-video-mask show">
     <div class="popover-video-wrap">
       <video id="vid1" class="video-js gaia show-control vjs-default-skin " controls preload="auto" width="860" height="482">
-        <!--<source src="rtmp://cp67126.edgefcs.net/ondemand/&mp4:mediapm/ovp/content/test/video/spacealonehd_sounas_640_300.mp4" type='rtmp/mp4'>-->  
+        <!--<source src="rtmp://cp67126.edgefcs.net/ondemand/&mp4:mediapm/ovp/content/test/video/spacealonehd_sounas_640_300.mp4" type='rtmp/mp4'>-->
       </video>
     </div>
   </div>
@@ -149,9 +149,9 @@
         type: 'video/mp4'
       }]
     }
-  ];  
-  
-  
+  ];
+
+
   (function() {
     var vid1, progressed,volumeMenuButton;
 
@@ -159,7 +159,7 @@
     // videojs.plugin('progressed', progressed);
 
     var currentPlayResource = urls[0]; // 当前播放的视频。
-    
+
     vid1 = videojs('vid1',{
       poster:currentPlayResource.poster,
       techOrder: ["html5", "flash"],
@@ -173,7 +173,7 @@
           videos: currentPlayResource.videos
         }
       }
-    });    
+    });
     // var vControl = videoSetControl(vid1);
     // vControl.setControlData({
     //   author: currentPlayResource.author,
@@ -186,13 +186,13 @@
     //     if (currentPlayResource.liked) { // 已赞
     //       currentPlayResource.liked = false
     //       currentPlayResource.likes -= 1
-    //       console.log('取消赞'); 
+    //       console.log('取消赞');
     //     }
     //     else {
     //       currentPlayResource.liked = true
     //       currentPlayResource.likes += 1
     //       console.log('提交赞');
-    //     }        
+    //     }
     //   }
     // });
     // vControl.onClickClose(closeVideo);
@@ -202,7 +202,7 @@
     //   currentPlayResource = resource;
     //   vControl.setControlData(resource);
     // })
-    // 
+    //
     // document.getElementById('showVideo').addEventListener('click', function () {
     //   document.getElementById('js-popover-video').className = document.getElementById('js-popover-video').className + ' show';
     //   vid1.play();
@@ -212,7 +212,7 @@
     //     closeVideo()
     //   }
     // })
-    // function closeVideo() {      
+    // function closeVideo() {
     //   vid1.trigger('pause')
     //   vid1.reset();
     //   document.getElementById('js-popover-video').className = document.getElementById('js-popover-video').className.replace('show','').trim();
@@ -226,7 +226,7 @@
     //   }
     // }
   })();
-  
+
 </script>
 </body>
 </html>
