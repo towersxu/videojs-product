@@ -1,5 +1,8 @@
 
 ## 修改内容
+
+- 只兼容IE9+
+
 - 打开sandbox中的`demo.html`可以直接使用
 或者[在线访问](http://towersxu.esy.es/sandbox/demo.html)
 
