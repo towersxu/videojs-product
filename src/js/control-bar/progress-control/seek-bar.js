@@ -116,9 +116,8 @@ class SeekBar extends Slider {
 
     // Don't let video end while scrubbing.
     if (newTime === this.player_.duration()) { newTime = newTime - 0.1; }
-
     // Set new time (tell player to seek to new time)
-    this.player_.currentTime(newTime);
+    // this.player_.currentTime(Math.floor(newTime));    
   }
 
   /**
@@ -130,8 +129,16 @@ class SeekBar extends Slider {
     super.handleMouseUp(event);
 
     this.player_.scrubbing(false);
+    let newTime = this.calculateDistance(event) * this.player_.duration();
+
+    // Don't let video end while scrubbing.
+    if (newTime === this.player_.duration()) { newTime = newTime - 0.1; }
+    this.player_.currentTime(Math.floor(newTime));
     if (this.videoWasPlaying) {
-      this.player_.play();
+      var _this = this;
+      setTimeout(function () {
+        _this.player_.play();
+      }, 300);     
     }
   }
 

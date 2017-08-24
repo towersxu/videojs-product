@@ -169,7 +169,7 @@ module.exports = function(grunt) {
     connect: {
       dev: {
         options: {
-          port: Number(process.env.VJS_CONNECT_PORT) || 9999,
+          port: Number(process.env.VJS_CONNECT_PORT) || 8888,
           livereload: true,
           useAvailablePort: true
         }

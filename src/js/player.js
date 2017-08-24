@@ -1364,9 +1364,8 @@ class Player extends Component {
    * @return {Player}    self, when the current time is set
    * @method currentTime
    */
-  currentTime(seconds) {
+  currentTime(seconds) {    
     if (seconds !== undefined) {
-
       this.techCall_('setCurrentTime', seconds);
 
       return this;
