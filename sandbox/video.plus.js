@@ -9,6 +9,9 @@
    * 视频推荐和重播
    */
   function constructRecommendHtml (urls) {
+    if (urls.length === 0) {
+      return
+    }
     var wrapEl = document.createElement('div');
     wrapEl.className = 'vid-complete-poster';
     wrapEl.setAttribute('id', 'video-complete-recommend');
@@ -86,11 +89,19 @@
           })(i)    
           var img = document.createElement('img');
           img.setAttribute('src', url.poster);
-          var span = document.createElement('span');
-          span.className = 'vid-complete-source-txt';
-          span.innerText = url.title;
+          var des = document.createElement('div');
+          des.className = 'vid-complete-source-txt';          
+          var h3 = document.createElement('h3');
+          h3.className = 'vid-complete-source-title';
+          h3.innerText = url.title;
+          des.appendChild(h3);
+          var name = document.createElement('span');
+          name.className = 'vid-complete-source-name';
+          name.innerText = url.author;
+          des.appendChild(name);
+          
           div.appendChild(img);
-          div.appendChild(span);
+          div.appendChild(des);
           wrap.appendChild(div);
         }
       }
