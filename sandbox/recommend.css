@@ -80,7 +80,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  height: 70px;
+  height: 60px;
   vertical-align: middle;
 }
 .vid-complete-source-title {
@@ -167,7 +167,8 @@
   height: 60px;
   background: #fff;
   background: rgba(255,255,255,0.9);
-  opacity: 0;
+  z-index: 10;
+  opacity: 1;
 }
 .vid-header-txt {
   line-height: 60px;
@@ -186,14 +187,14 @@
   cursor: pointer;
   color: #666;
 }
-.vjs-user-active .vid-header-wrap{
+/*.vjs-user-active .vid-header-wrap{
   z-index: 10;
   opacity: 1;
   -webkit-transition: visibility 1s, opacity 1s;
   -moz-transition: visibility 1s, opacity 1s;
   -o-transition: visibility 1s, opacity 1s;
   transition: visibility 1s, opacity 1s;
-}
+}*/
 .vjs-has-started.vjs-user-inactive.vjs-playing .vid-header-wrap {
   visibility: visible;
   opacity: 0;
