@@ -2,27 +2,27 @@
 
 ### 基础版
 增加了切换分辨率功能
-<a href="http://123.207.101.120/demo/video/index.html"><img src="./sandbox/img/base-video.png" width="860"></a>
+<a href="http://hippor.com/static/video/index.html"><img src="./sandbox/img/base-video.png" width="860"></a>
 
 ### 弹框版
 - 特殊的弹窗样式
 - 控制条可自定义业务内容（点赞，观看数等）
 
-<a href="http://123.207.101.120/demo/video/index.html"><img src="./sandbox/img/modal-video.png" width="860"></a>
+<a href="http://hippor.com/static/video/index.html"><img src="./sandbox/img/modal-video.png" width="860"></a>
 
 - 播放完成后有视频推荐
 
-<a href="http://123.207.101.120/demo/video/index.html"><img src="./sandbox/img/video-recommend.png" width="860"></a>
+<a href="http://hippor.com/static/video/index.html"><img src="./sandbox/img/video-recommend.png" width="860"></a>
 
 ## 修改内容
 
 - 只兼容IE9+
 
 - 打开sandbox中的`demo.html`可以直接使用
-或者[在线访问](http://towersxu.esy.es/sandbox/demo.html)
+或者[在线访问](http://hippor.com/static/video/demo.html)
 
 - 打开sandbox中的`index.html`可以直接使用
-或者[在线访问](http://123.207.101.120:7500/demo/video/index2.html)
+或者[在线访问](http://hippor.com/static/video/)
 
 - 所有的样式都是在`src/css/custom中进行补充修改的`;
 由于最开始是在一个[gaiamount](http://www.gaiamount.com/)中开始修改的,所以在样式中都有一个class叫做`gaia`
@@ -50,7 +50,6 @@
   }
 ```
 
-<p align="center"><img width="800" src="http://4.tophp.sinaapp.com/demo.png"></p>
 
 ### 移除`bigPlayButton`
 使用自定义的控制条作为播放控制器。
